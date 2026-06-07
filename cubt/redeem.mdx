@@ -1,0 +1,76 @@
+---
+title: "Redeem CUBT: Convert Your CUBT Tokens Back to USDC"
+sidebarTitle: "Redeem CUBT"
+description: "Exchange your CUBT tokens back to USDC through Achylo's Mint & Redeem interface. Preview the exact USDC output with the real-time simulator."
+---
+
+Redeeming CUBT converts your tokens back into USDC in a single on-chain transaction. There are no lock-up periods on the token itself — as long as your CUBT is not held inside an active escrow, you can redeem at any time. Before you confirm anything, the simulator shows you the exact USDC you will receive after fees, so you always know the outcome before signing.
+
+## Prerequisites
+
+Make sure the following conditions are met before you start:
+
+- **Wallet connected** to the **Base** or **Base Sepolia** network.
+- **CUBT balance available** in your wallet. CUBT currently locked inside an active escrow is not available for redemption until the escrow is completed or cancelled.
+
+<Warning>
+  CUBT held in an active escrow cannot be redeemed until the escrow concludes. If your displayed CUBT balance seems lower than expected, check whether any tokens are locked in open escrow contracts.
+</Warning>
+
+## Step-by-Step: Redeeming CUBT
+
+<Steps>
+  <Step title="Open the Redeem tab">
+    Navigate to **Mint and Redeem** from the main menu. At the top of the interface, click the **Redeem** tab to switch from Mint mode.
+  </Step>
+
+  <Step title="Enter the CUBT amount">
+    Type the number of CUBT you want to exchange in the input field. If you want to redeem your entire available balance, click the **MAX** button — it fills the field with your full unlocked CUBT balance automatically.
+  </Step>
+
+  <Step title="Review the simulator">
+    The simulator updates in real time as you type. Before confirming, check the following:
+
+    | Simulator Field | What It Means |
+    |---|---|
+    | **USDC before fee** | Gross USDC value of your CUBT at the current exchange rate |
+    | **USDC to receive** | Net USDC after the redeem fee is deducted |
+    | **Active discounts** | Any fee reductions applied to your account (highlighted in green) |
+
+    <Tip>
+      There is no overcollateralization on Redeem. The only deduction from your USDC output is the redeem fee. What you see in the simulator is exactly what arrives in your wallet.
+    </Tip>
+  </Step>
+
+  <Step title="Click Redeem and confirm in your wallet">
+    Press the **Redeem** button. Your wallet will display a confirmation prompt — review the transaction details and click **Confirm**. The interface shows a toast notification tracking progress and a final success message once the transaction is confirmed on-chain.
+  </Step>
+
+  <Step title="Wait for on-chain confirmation">
+    After confirmation, the dApp waits for the block to finalize and then automatically refreshes your CUBT balance, USDC balance, and the protocol statistics panel. No manual action is needed.
+  </Step>
+</Steps>
+
+## No Overcollateralization on Redeem
+
+Unlike minting, redeeming does not include an overcollateralization deduction. The only amount subtracted from your USDC output is the redeem fee. This keeps the redeem flow simple:
+
+```
+USDC received = (CUBT amount × current exchange rate) × (1 − redeem fee)
+```
+
+If you are fee-exempt or hold Gold status, the redeem fee equals 0 and you receive the full exchange-rate value.
+
+## Fee Exemption
+
+If the simulator shows a fee of **0%**, one of the following applies to your account:
+
+- You hold **fee-exempt** status (granted by Governance).
+- You have **Gold status** (verified automatically by the protocol).
+- You have an **active staking position**, which grants a 50% discount — check [Fees & Discounts](/cubt/fees) for the full tier breakdown. *(Staking is currently in development.)*
+
+## Refreshing Your Balance
+
+<Tip>
+  If you recently received CUBT from an external wallet, another contract, or a completed escrow, your balance may not update automatically. Click the **Refresh** button at the top of the Mint & Redeem panel to force a fresh on-chain query and see your current available balance before redeeming.
+</Tip>

@@ -1,0 +1,335 @@
+---
+title: "Payment Widgets: Embed Crypto Payments on Any Site"
+sidebarTitle: "Payment Widgets"
+description: "Add an Achylo payment button to any website with a single HTML tag. No backend required. Supports React, Vue, Next.js, and plain HTML."
+---
+
+Payment widgets let you add a **"Pay with Crypto"** button to any website using a single HTML tag. Your customers click the button, a payment modal opens, and they pay in USDC on Base — all without leaving your page. No backend is required, making widgets the fastest way to start accepting crypto payments.
+
+## Use Cases
+
+| Use case | Examples |
+|---|---|
+| Online stores | Wix, Shopify, WooCommerce, PrestaShop |
+| Landing pages | Sales pages, funnels |
+| Donation buttons | NGOs, content creators |
+| Digital services | SaaS, courses, subscriptions |
+
+---
+
+## Option 1: No-Code (Copy & Paste)
+
+This option works for anyone — no programming knowledge needed. It works with WordPress, Wix, Shopify, or plain HTML.
+
+<Steps>
+  <Step title="Copy the HTML snippet">
+    Paste this code wherever you want the payment button to appear:
+
+    ```html
+    <script src="https://achylo.com/achylo.js"></script>
+    <achylo-button
+      merchant-id="achylo_SEU_WIDGET_ID"
+      amount="29.99"
+      currency="USDC"
+      label="💳 Pay with Crypto"
+      description="Order #1234">
+    </achylo-button>
+    ```
+  </Step>
+
+  <Step title="Get your Widget ID">
+    1. Go to [achylo.com](https://achylo.com) and log in
+    2. Open your **User Profile** → **Payment Widgets** section
+    3. Click **"Create new widget"**
+    4. Add the domains where you will use the widget (e.g. `https://yourstore.com`)
+    5. Copy the **Widget ID** — it starts with `achylo_`
+  </Step>
+
+  <Step title="Customize the attributes">
+    Replace the placeholder values with your own:
+
+    ```html
+    <achylo-button
+      merchant-id="achylo_cv80520f"
+      amount="50.00"
+      currency="USDC"
+      label="💳 Pay Now"
+      description="Monthly subscription"
+      color="#6366f1">
+    </achylo-button>
+    ```
+
+    | Attribute | Required | Description |
+    |---|---|---|
+    | `merchant-id` | ✅ | Your Widget ID (`achylo_...`) |
+    | `amount` | ✅ | USDC amount (e.g. `"50.00"`) |
+    | `currency` | ✅ | Always `"USDC"` |
+    | `label` | — | Button text (default: `"Pay with Crypto"`) |
+    | `description` | — | Payment description shown in the modal |
+    | `color` | — | Hex color for the button (default: `#ff7f41`) |
+  </Step>
+
+  <Step title="Paste into your site">
+    <Tabs>
+      <Tab title="WordPress">
+        In the WordPress editor, add an **HTML custom block** and paste the full snippet inside it.
+      </Tab>
+      <Tab title="Wix">
+        1. In the Wix Editor, click **Add** → **Embed** → **Embed HTML**
+        2. Click **Enter Code** and paste your snippet:
+
+        ```html
+        <script src="https://achylo.com/achylo.js"></script>
+        <achylo-button
+          merchant-id="achylo_SEU_WIDGET_ID"
+          amount="29.99"
+          currency="USDC"
+          label="💳 Pay with Crypto"
+          description="Order #1234">
+        </achylo-button>
+        ```
+
+        3. Click **Apply**
+        4. Position the button where you want it on the page
+        5. Click **Publish** to make it live
+
+        <Tip>
+          If the button doesn't appear, verify that your Wix domain (e.g. `yoursite.wixsite.com`) is added to the widget's allowed domains list.
+        </Tip>
+      </Tab>
+      <Tab title="Shopify">
+        Go to **Theme → Edit code**, create a new snippet, and paste the code inside it. Then include that snippet in the template where you want the button.
+      </Tab>
+      <Tab title="Plain HTML">
+        Paste the snippet anywhere inside the `<body>` tag of your HTML page.
+      </Tab>
+    </Tabs>
+  </Step>
+
+  <Step title="Test the button">
+    Open your site in a browser, click the button, and confirm that the payment modal opens correctly.
+  </Step>
+</Steps>
+
+---
+
+## Option 2: JavaScript SDK (Programmatic)
+
+For developers who need to listen to payment events, control the flow, or create buttons dynamically. Load the Achylo script and interact with the `<achylo-button>` element using standard DOM events.
+
+### Attributes Reference
+
+| Attribute | Required | Description |
+|---|---|---|
+| `merchant-id` | ✅ | Your Widget ID (`achylo_...`) |
+| `amount` | ✅ | USDC amount (e.g. `"10.50"`) |
+| `currency` | ✅ | Always `"USDC"` |
+| `label` | — | Button text (default: `"Pay with Crypto"`) |
+| `description` | — | Payment description shown in the modal |
+| `color` | — | Hex color for the button (default: `#ff7f41`) |
+
+### JavaScript Events
+
+Use standard `addEventListener` to react to payment outcomes in real time:
+
+```html
+<script src="https://achylo.com/achylo.js"></script>
+
+<achylo-button id="pay-btn" merchant-id="achylo_cv80520f" amount="25.00" currency="USDC">
+</achylo-button>
+
+<script>
+  const btn = document.getElementById('pay-btn');
+
+  btn.addEventListener('achylo:success', (e) => {
+    console.log('Payment OK:', e.detail.paymentId);
+    window.location.href = '/thank-you';
+  });
+
+  btn.addEventListener('achylo:error', (e) => {
+    console.error('Error:', e.detail.message);
+  });
+
+  btn.addEventListener('achylo:cancel', () => {
+    console.log('User cancelled');
+  });
+
+  btn.addEventListener('achylo:ready', () => {
+    console.log('Widget loaded and ready');
+  });
+</script>
+```
+
+### Events Reference
+
+| Event | When it fires |
+|---|---|
+| `achylo:success` | Payment confirmed on-chain |
+| `achylo:error` | Processing error occurred |
+| `achylo:cancel` | User closed the modal |
+| `achylo:ready` | Script loaded and component is ready |
+
+### Dynamic Button Creation
+
+You can also create the `<achylo-button>` element entirely via JavaScript — useful when the amount or description is only known at runtime:
+
+```javascript
+const btn = document.createElement('achylo-button');
+btn.setAttribute('merchant-id', 'achylo_cv80520f');
+btn.setAttribute('amount', '100.00');
+btn.setAttribute('currency', 'USDC');
+btn.setAttribute('label', 'Pay $100.00');
+btn.setAttribute('description', 'Annual subscription');
+btn.setAttribute('color', '#10b981');
+
+document.getElementById('container').appendChild(btn);
+```
+
+---
+
+## Framework Examples
+
+<CodeGroup>
+
+```jsx React
+import { useEffect, useRef } from 'react';
+
+export function AchyloPayButton({ amount, orderId, description }) {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const btn = document.createElement('achylo-button');
+    btn.setAttribute('merchant-id', process.env.REACT_APP_ACHYLO_WIDGET_ID);
+    btn.setAttribute('amount', amount);
+    btn.setAttribute('currency', 'USDC');
+    btn.setAttribute('label', '💳 Pay with Crypto');
+    btn.setAttribute('description', description || `Payment for order ${orderId}`);
+
+    btn.addEventListener('achylo:success', () => {
+      markOrderAsPaid(orderId);
+    });
+
+    containerRef.current.appendChild(btn);
+
+    return () => btn.remove();
+  }, [amount, orderId, description]);
+
+  return <div ref={containerRef} />;
+}
+```
+
+```vue Vue
+<template>
+  <div ref="widgetContainer" />
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+
+const props = defineProps({ amount: String, description: String });
+const widgetContainer = ref(null);
+
+onMounted(() => {
+  const btn = document.createElement('achylo-button');
+  btn.setAttribute('merchant-id', import.meta.env.VITE_ACHYLO_WIDGET_ID);
+  btn.setAttribute('amount', props.amount);
+  btn.setAttribute('currency', 'USDC');
+  btn.setAttribute('description', props.description || 'Payment');
+
+  btn.addEventListener('achylo:success', (e) => {
+    console.log('Paid:', e.detail);
+  });
+
+  widgetContainer.value.appendChild(btn);
+});
+</script>
+```
+
+```tsx Next.js
+'use client';
+
+import { useEffect, useRef } from 'react';
+
+export function AchyloButton({
+  amount,
+  description,
+}: {
+  amount: string;
+  description?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current || typeof window === 'undefined') return;
+
+    const btn = document.createElement('achylo-button');
+    btn.setAttribute('merchant-id', process.env.NEXT_PUBLIC_ACHYLO_WIDGET_ID!);
+    btn.setAttribute('amount', amount);
+    btn.setAttribute('currency', 'USDC');
+    btn.setAttribute('description', description || 'Payment');
+
+    ref.current.appendChild(btn);
+    return () => btn.remove();
+  }, [amount, description]);
+
+  return <div ref={ref} />;
+}
+```
+
+</CodeGroup>
+
+---
+
+## Security — Allowed Origins
+
+For security, the widget only works on domains you have explicitly authorized. Requests from unauthorized domains are blocked automatically.
+
+<Steps>
+  <Step title="Open your widget settings">
+    Go to **Profile → Payment Widgets** and open the widget you want to configure.
+  </Step>
+  <Step title="Add your authorized domains">
+    Under **Allowed Origins**, add every domain where the widget will be embedded. Include both the bare and `www` variants:
+
+    - `https://yoursite.com`
+    - `https://www.yoursite.com`
+    - `https://checkout.yoursite.com`
+  </Step>
+  <Step title="Save and publish">
+    Save the changes. The widget will immediately start accepting requests from your authorized domains.
+  </Step>
+</Steps>
+
+<Warning>
+  Never use `*` (wildcard) in production — it allows any website to embed your widget and charge payments against your merchant account. Use `*` only during local development.
+</Warning>
+
+---
+
+## Limits
+
+| Limit | Value |
+|---|---|
+| Minimum amount | 1 USDC |
+| Maximum amount | 100,000 USDC |
+| Decimal precision | Up to 6 decimal places |
+
+---
+
+## Troubleshooting
+
+<Accordion title="Button doesn't appear on the page">
+  - Confirm that the `<script src="https://achylo.com/achylo.js"></script>` tag is loading without errors (check the browser console with F12)
+  - Verify that the `merchant-id` attribute matches exactly the Widget ID shown in your Achylo profile
+</Accordion>
+
+<Accordion title='"Domain not authorized" error'>
+  - Open **Profile → Payment Widgets → Allowed Origins** and add your domain
+  - Always include the full scheme: `https://yoursite.com`, not just `yoursite.com`
+  - If you are using `www`, add both `https://yoursite.com` and `https://www.yoursite.com`
+</Accordion>
+
+<Accordion title="Modal doesn't open when clicking the button">
+  - Check whether your browser or an extension is blocking popups or modals
+  - The click that triggers the payment must come directly from a user action — it cannot be dispatched programmatically via script, as browsers block non-user-initiated modal opens
+</Accordion>

@@ -1,0 +1,135 @@
+---
+title: "Get Started with the Achylo P2P Marketplace on Base"
+sidebarTitle: "Getting Started"
+description: "Learn how to access the Achylo P2P marketplace, connect your wallet, and start trading USDC against local fiat currencies on Base."
+---
+
+The Achylo P2P marketplace lets you trade USDC directly with other people, using local fiat currencies as the payment method. Every trade is protected by a smart contract escrow on **Base blockchain** — your USDC is locked until both parties confirm the transaction, eliminating counterparty risk without relying on a central authority. This guide walks you through accessing the app, connecting your wallet, and understanding what currencies you can trade.
+
+---
+
+## Available Networks
+
+Achylo Protocol operates on two environments depending on your needs:
+
+| Environment | Network | Use Case |
+|---|---|---|
+| **Mainnet** | Base (chain ID `8453`) | Real trades with real USDC |
+| **Testnet** | Base Sepolia (chain ID `84532`) | Testing and development with mock USDC |
+
+<Warning>
+  Always verify which network is currently active before sending funds. Check the official [Achylo announcements](https://achylo.com) for the latest network status. Sending funds to the wrong network may result in loss of assets.
+</Warning>
+
+---
+
+## Accessing the App
+
+Follow these steps to go from a blank browser tab to an active P2P session.
+
+<Steps>
+  <Step title="Open the Achylo app">
+    Navigate to [www.achylo.com](https://achylo.com) in your browser. The app runs entirely in your browser — no desktop client or browser extension is required.
+  </Step>
+  <Step title="Connect your wallet">
+    Click the **Connect** button in the top navigation. 
+    
+    - **Returning users:** Select your existing wallet or provider.
+    - **First-time users:** Sign in with your preferred **email address**. Achylo will automatically create a personal smart account wallet for you — no seed phrase to write down, no extension to install. Your wallet is self-custodied and only you control it.
+  </Step>
+  <Step title="Fund your wallet with USDC">
+    Once your wallet is created, you are ready to receive **USDC on the Base network**. Send USDC from an exchange or another wallet to your Achylo wallet address.
+
+    <Warning>
+      **Critical:** Always verify that funds are sent on the **Base network**. Sending USDC on a different network (e.g., Ethereum mainnet, Polygon) without using the multi-chain deposit feature will result in funds that cannot be accessed by the protocol.
+    </Warning>
+  </Step>
+  <Step title="Navigate to the P2P marketplace">
+    With your wallet connected and funded, go to **Tools → P2P** in the main navigation menu. The app will display your wallet address and unlock the full P2P marketplace interface.
+  </Step>
+</Steps>
+
+<Tip>
+  If you want to deposit from another blockchain (Ethereum, Arbitrum, Polygon, etc.), use the **Multi-Chain Deposit** feature described below — it handles bridging automatically.
+</Tip>
+
+---
+
+## Multi-Chain Deposits
+
+You do not need to already hold USDC on Base to get started. Achylo supports **multi-chain deposits**, allowing you to send tokens from several popular blockchains and receive them automatically as **USDC on Base**.
+
+### How It Works
+
+1. **Choose your source chain** — select from the supported networks listed below.
+2. **Send your tokens** — you can send native tokens (ETH, POL, BNB, AVAX) or stablecoins (USDC, USDT, DAI) from the source chain.
+3. **Automatic bridging and conversion** — Achylo routes your deposit through the optimal bridge and swap path. Your funds arrive as USDC in your Achylo wallet on Base.
+4. **Unified balance** — all your capital consolidates into a single USDC balance on Base, ready to use in the protocol.
+
+### Supported Chains for Deposit
+
+| Chain | Accepted Tokens |
+|---|---|
+| **Ethereum** | ETH, USDC, USDT, DAI |
+| **Arbitrum** | ETH, USDC, USDT |
+| **Optimism** | ETH, USDC |
+| **Polygon** | POL, USDC, USDT |
+| **BSC** | BNB, USDT, BUSD |
+| **Avalanche** | AVAX, USDC |
+
+<Note>
+  The full list of supported chains and tokens is updated dynamically. Check the app's deposit interface for the most current options.
+</Note>
+
+### Benefits of Multi-Chain Deposits
+
+- **No manual bridging:** No need to visit separate bridge platforms or manage multiple wallets.
+- **Gas optimization:** The protocol automatically selects the most cost-efficient route.
+- **Unified capital:** One USDC balance on Base — simple, clean, ready to trade.
+- **Global access:** Users from any major blockchain ecosystem can participate without friction.
+
+---
+
+## Supported Fiat Currencies
+
+The P2P marketplace supports **18+ local fiat currencies**, covering the major economies of LATAM and key global currencies. When you create or accept an offer, you choose the fiat currency that will be used for the off-chain payment leg of the trade.
+
+| Currency Code | Description |
+|---|---|
+| **CUBT** | Cuban Tokenized Peso — **50% discount on protocol fees** |
+| **CUP** | Cuban Peso |
+| **MLC** | Freely Convertible Currency (Cuba) |
+| **USD_CLASICA** | USD via classic bank transfer |
+| **USD** | US Dollar (cash) |
+| **COP** | Colombian Peso (cash) |
+| **EURO** | Euro (cash) |
+| **GBP** | British Pound Sterling (cash) |
+| **CAD** | Canadian Dollar (cash) |
+| **MXN** | Mexican Peso (cash) |
+| **BRL** | Brazilian Real (cash) |
+| **PEN** | Peruvian Sol (cash) |
+| **DOP** | Dominican Peso (cash) |
+| **PYG** | Paraguayan Guaraní (cash) |
+| **ECS** | Ecuadorian Sucre |
+| **BOB** | Bolivian Boliviano (cash) |
+| **ARS** | Argentine Peso (cash) |
+| **VES** | Venezuelan Bolívar (cash) |
+
+<Tip>
+  Trading with **CUBT** as your fiat currency gives you a **50% discount on protocol fees**. See the [CUBT Token overview](/cubt/overview) to learn how to acquire and use CUBT.
+</Tip>
+
+---
+
+## Next Steps
+
+Now that your wallet is connected and funded, you are ready to trade. Continue with these guides:
+
+<CardGroup cols={2}>
+  <Card title="Your Wallet" icon="wallet" href="/p2p/wallet">
+    Learn how to manage your self-custody wallet, deposit from multiple chains, and export your private key safely.
+  </Card>
+  <Card title="CUBT Token" icon="coins" href="/cubt/overview">
+    Discover how CUBT token holders get 50% fee discounts and can earn staking rewards.
+  </Card>
+</CardGroup>

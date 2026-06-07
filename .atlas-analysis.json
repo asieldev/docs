@@ -1,0 +1,90 @@
+{
+  "projectType": "saas",
+  "projectName": "Achylo Protocol",
+  "projectDescription": "A decentralized P2P escrow protocol on Base blockchain enabling trustless USDC trading against local fiat currencies across LATAM and emerging markets, with payment infrastructure for merchants and developers.",
+  "theme": "luma",
+  "primaryColor": "#FF7F41",
+  "lightColor": "#FFF0E8",
+  "darkColor": "#1A0E00",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "p2p/getting-started",
+              "p2p/wallet"
+            ]
+          },
+          {
+            "group": "P2P Marketplace",
+            "pages": [
+              "p2p/merchant",
+              "p2p/public-orders",
+              "p2p/private-orders",
+              "p2p/buy-and-sell",
+              "p2p/limits-and-fees"
+            ]
+          },
+          {
+            "group": "CUBT Token",
+            "pages": [
+              "cubt/overview",
+              "cubt/mint",
+              "cubt/redeem",
+              "cubt/fees"
+            ]
+          },
+          {
+            "group": "Developers",
+            "pages": [
+              "developers/quickstart",
+              "developers/api-keys",
+              "developers/payment-links",
+              "developers/payment-widgets",
+              "developers/webhooks"
+            ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              "white-paper",
+              "community",
+              "legal/terms-of-service",
+              "legal/privacy-policy"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Decentralized P2P USDC escrow marketplace with 18+ fiat currencies",
+    "Smart contract-backed trustless escrow with dispute resolution",
+    "CUBT yield-bearing stablecoin (mint/redeem against USDC)",
+    "Payment Links API for programmatic USDC checkout on Base",
+    "Embeddable Payment Widgets (no-code HTML button)",
+    "Webhook notifications for real-time payment confirmations",
+    "Multi-chain deposits (auto-convert to USDC on Base)",
+    "Merchant collateral system with 2x order capacity",
+    "Public and private order types with configurable payment methods",
+    "Gold user tier with zero protocol fees",
+    "Gasless transactions (protocol sponsors gas via paymaster)"
+  ],
+  "publicApiSurface": [
+    "POST /api/payment-links — create a USDC payment link",
+    "GET /api/payment-links/:id — retrieve payment link details",
+    "DELETE /api/payment-links/:id — cancel a pending payment link",
+    "GET /api/payment-links/history — list payment links",
+    "POST /api/payment-links/widget — create payment link via widget",
+    "X-API-Key header authentication",
+    "Authorization: Bearer <JWT> header authentication",
+    "<achylo-button> web component (Payment Widget)",
+    "achylo:success / achylo:error / achylo:cancel / achylo:ready JavaScript events",
+    "X-Achylo-Signature HMAC-SHA256 webhook verification",
+    "x-achylo-timestamp replay attack prevention header"
+  ]
+}

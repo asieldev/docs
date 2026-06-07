@@ -1,0 +1,376 @@
+---
+title: "Achylo Protocol White Paper: P2P Escrow Architecture"
+sidebarTitle: "White Paper"
+description: "Technical overview of Achylo Protocol's smart contract architecture, tokenomics, governance model, and economic design for decentralized P2P escrow."
+---
+
+Achylo Protocol is a decentralized peer-to-peer escrow system built on the Base blockchain. It enables secure, transparent, and efficient transactions without intermediaries by combining advanced smart-contract architecture with user-friendly interfaces. Leveraging cryptographic guarantees, Achylo minimizes counterparty risk, reduces costs, and delivers dispute resolution mechanisms that protect all participants across cross-border and domestic transactions.
+
+<Note>
+  This white paper is informational only and does not constitute investment advice. Cryptocurrency and blockchain technologies carry inherent risks. Conduct your own research and consult financial professionals before participating.
+</Note>
+
+---
+
+## Executive Summary
+
+Achylo is a decentralized peer-to-peer (P2P) escrow protocol built on the **Base blockchain**. It enables secure, transparent, and efficient transactions **without intermediaries** by combining advanced smart-contract architecture with user-friendly interfaces. By using cryptographic guarantees and on-chain logic, Achylo:
+
+- Minimizes counterparty risk across domestic and cross-border transactions.
+- Reduces costs to a fraction of what traditional payment processors charge.
+- Delivers community-driven dispute resolution that is transparent and auditable.
+- Provides global access to anyone with an internet-connected wallet.
+
+---
+
+## 1. The Problem
+
+Traditional P2P commerce is burdened by structural inefficiencies that harm both buyers and sellers:
+
+| Pain Point | Description |
+|---|---|
+| **Trust asymmetry** | Parties must either trust each other blindly or rely on costly centralized intermediaries. |
+| **High costs** | Intermediaries typically charge **2–5%** per transaction. |
+| **Slow settlement** | Legacy payment systems can take days to finalize. |
+| **Geographic limitations** | Cross-border deals face regulatory and operational friction. |
+| **Opaque disputes** | Centralized arbitration is slow, expensive, and difficult to audit. |
+
+---
+
+## 2. The Achylo Solution
+
+Achylo addresses these gaps with a protocol designed for trustless commerce at scale:
+
+- **Direct P2P settlement** — no middlemen holding or routing funds.
+- **Minimal on-chain fees** — transparent, configurable, and governance-controlled.
+- **Fast finality** — blockchain confirmation in minutes, not days.
+- **Global access** — any internet-connected wallet can participate.
+- **Community-driven arbitration** — verifiable votes with on-chain outcomes.
+
+---
+
+## 3. Protocol Architecture
+
+Achylo relies on four primary smart contracts working in concert.
+
+### 3.1 P2P Escrow Contract
+
+The core of the protocol. It manages the entire lifecycle of an escrow transaction — from initiation to settlement or dispute resolution.
+
+**Responsibilities:**
+- Transaction initiation with explicit, agreed-upon terms.
+- Collateral management for merchants posting security deposits.
+- Payment method verification and enforcement.
+- Secure custody of stablecoins until settlement conditions are met.
+- Dispute workflows handled by community arbiters.
+
+**Key capabilities:**
+
+| Capability | Details |
+|---|---|
+| Multi-state management | `pending` → `confirmed` → `released` → `disputed` |
+| Custom payment methods | Configurable exchange rates per transaction |
+| Tiered reputation system | New, Active, Merchant, and Gold user tiers |
+| Automatic timeouts | Guaranteed finality even without counterparty action |
+| Collateral slashing | Fraudulent behavior results in loss of collateral |
+
+### 3.2 CUBT Token Contract
+
+CUBT is Achylo's native utility token that powers the protocol's economic layer.
+
+- **Minting:** Converts USDT into CUBT at a dynamic fee.
+- **Redemption:** Converts CUBT back into USDT on demand.
+- **Dynamic fees:** Mint and redeem fees adjust to protocol economics.
+- **Overcollateralization:** Ensures price stability and system security.
+- **Staking integration:** Rewards long-term holders with yield and fee discounts.
+
+### 3.3 Referral System Contract
+
+Incentivizes organic network growth and user acquisition:
+
+- Registers referrers and tracks commissions on-chain.
+- Calculates rewards programmatically without manual intervention.
+- Applies tier-based bonuses for high-activity referrers.
+- Blocks circular or fraudulent referral loops.
+- Distributes rewards directly to wallet addresses.
+
+### 3.4 Recovery Module Contract
+
+Provides account safety and optional social recovery mechanisms:
+
+- Guardian registration and management by the account owner.
+- Email verification layer for recovery requests.
+- Timelock protections that prevent instant account takeovers.
+- Secure ownership transfers through multi-step approval.
+- Social recovery with community involvement for edge cases.
+
+---
+
+## 4. Transaction Flow
+
+### 4.1 Standard Escrow
+
+```
+Buyer creates escrow → Seller accepts & collateral locked → Buyer sends payment
+→ Seller confirms receipt → Seller delivers → Buyer confirms → Funds released
+```
+
+**Step-by-step:**
+
+1. **Initiation** — Buyer creates an escrow with defined terms; seller accepts and collateral is locked (if required).
+2. **Payment** — Buyer sends payment via the agreed method; seller confirms receipt while funds remain in escrow.
+3. **Delivery** — Seller delivers goods or services; buyer confirms delivery.
+4. **Settlement** — Smart contract releases funds when conditions are met. The escrow closes on-chain with immutable proof.
+
+### 4.2 Dispute Resolution Flow
+
+When a party believes the transaction terms have not been met, the following process activates:
+
+1. **Dispute Initiation** — Either party raises a dispute; an evidence submission window opens; arbiters are assigned automatically.
+2. **Arbitration** — Community arbiters review submitted evidence. A **24–48 hour voting period** determines the outcome by majority vote.
+3. **Resolution** — Funds are distributed according to the arbiter decision; the losing party may forfeit collateral; the transaction closes with a fully auditable on-chain record.
+
+---
+
+## 5. Security Model
+
+### 5.1 Collateral System
+
+- Merchants post collateral proportional to their order capacity.
+- **Slashing mechanisms** punish fraudulent behavior by seizing posted collateral.
+- Collateral is returned after successful activity, subject to cooldown periods.
+- Tiered requirements ensure new merchants ramp up responsibility incrementally.
+
+### 5.2 Rate Limiting
+
+- Tier-based hourly and daily transaction limits mitigate spam and sybil attacks.
+- Cooldown periods prevent burst attacks across multiple accounts.
+- Critical operations can be exempted by governance when necessary.
+
+### 5.3 Account Freezing
+
+| Trigger | Details |
+|---|---|
+| Automatic triggers | Fraud signals or repeated dispute losses activate freezing |
+| Manual governance freeze | Governance can freeze accounts posing protocol risk |
+| Appeal process | Users retain a defined appeal path with clear criteria |
+| Auto-unfreeze | Account access restores automatically once conditions are satisfied |
+
+### 5.4 Cryptographic Security
+
+- **Regular third-party audits** of all smart contracts by independent firms.
+- **Multi-signature controls** across all treasury operations.
+- **Timelocks** enforced before any critical protocol upgrade executes.
+- **Governance approval** required for all protocol parameter changes.
+
+---
+
+## 6. Economic Model
+
+### 6.1 Fee Structure
+
+Achylo generates sustainable revenue via transparent, on-chain fees.
+
+#### Escrow Fees
+
+| Fee Type | Rate |
+|---|---|
+| Base transaction fee | **0.1%** (governance configurable) |
+| Dispute fees | Deducted from losing party's collateral |
+| Arbitration rewards | Paid from dispute fee pool |
+
+#### Token Fees
+
+| Operation | Fee Range |
+|---|---|
+| Mint (USDT → CUBT) | **0.1% – 1%** |
+| Redeem (CUBT → USDT) | **0.1% – 1%** |
+
+#### Fee Reductions
+
+| Benefit | Discount |
+|---|---|
+| CUBT token holding | Up to **50%** off |
+| Staking discount | Up to **30%** additional reduction |
+| Gold membership | Up to **75%** off |
+
+### 6.2 Fee Distribution
+
+Collected fees flow to four destinations:
+
+| Recipient | Purpose |
+|---|---|
+| **Treasury** | Funds protocol operations and development |
+| **Arbiters** | Compensation for dispute resolution work |
+| **Stakers** | Rewards for securing the network |
+| **Referrers** | Commissions on referred transaction volume |
+
+### 6.3 CUBT Tokenomics
+
+- **Demand-backed minting:** CUBT is minted only when users deposit USDT, keeping supply tied to real demand.
+- **On-demand redemption:** Users can always redeem CUBT back to USDT.
+- **Overcollateralized reserves:** Excess backing guarantees the redemption ratio.
+- **Deflationary pressure:** A portion of fees are burned, reducing circulating supply over time.
+
+**CUBT utility:**
+- Reduced escrow and token fees.
+- Staking rewards and yield generation.
+- Governance voting rights.
+- Gold-tier access and perks.
+
+---
+
+## 7. User Tiers and Reputation
+
+### 7.1 Tier System
+
+| Tier | Requirement | Benefits |
+|---|---|---|
+| **New User** | 0 completed escrows | Standard limits and fees |
+| **Active User** | 1+ completed escrows | Doubled limits, reduced collateral requirements |
+| **Merchant** | 10+ completed escrows | Unlimited limits, public order posting, collateral supply |
+| **Gold User** | 50+ escrows or paid membership | Unlimited limits, priority disputes, exclusive perks, 75% fee reduction |
+
+### 7.2 Reputation Mechanics
+
+- On-chain transaction history provides full transparency and is publicly verifiable.
+- Dispute outcomes (wins and losses) modify a user's standing, future collateral requirements, and tier eligibility.
+
+---
+
+## 8. Governance and Decentralization
+
+### 8.1 Protocol Governance
+
+Achylo governance is token-weighted:
+
+- **CUBT holders** submit and vote on proposals to adjust protocol parameters.
+- Approved changes execute only **after timelock delays** for security.
+- Emergency proposals can be fast-tracked with supermajority approval.
+
+### 8.2 Governance-Controlled Parameters
+
+- Escrow and token fee rates.
+- Merchant collateral requirements.
+- Rate limits per user tier.
+- Arbitration and dispute policies.
+- Treasury allocations and development budgets.
+
+### 8.3 Decentralization Roadmap
+
+| Phase | Description |
+|---|---|
+| **Phase 1** | Centralized governance with structured community feedback. |
+| **Phase 2** | Token-weighted voting rolls out incrementally for select parameters. |
+| **Phase 3** | Transition to a full DAO structure with community-elected delegates. |
+| **Phase 4** | Entire protocol configuration managed on-chain by the community. |
+
+---
+
+## 9. Risk Management
+
+### 9.1 Smart Contract Risks
+
+- Continuous audits by independent third-party security firms.
+- Bug bounty programs incentivize responsible vulnerability disclosure.
+- Upgrade mechanisms allow critical fixes without full redeployment.
+- Optional protocol insurance for catastrophic failure scenarios.
+
+### 9.2 Economic Risks
+
+- Overcollateralization safeguards CUBT token stability and redeemability.
+- Reserves are monitored continuously to maintain backing ratios.
+- Fee mechanisms adjust dynamically to protocol health indicators.
+- Liquidity management ensures redemption capacity at all times.
+
+### 9.3 Operational Risks
+
+- Community arbitration avoids single points of centralized control.
+- Appeal processes handle contested arbitration outcomes.
+- Full transparency through immutable on-chain event logs.
+- Governance can override actions that threaten protocol integrity.
+
+---
+
+## 10. Scalability and Performance
+
+Achylo is built on **Base**, an Ethereum Layer 2 network optimized for throughput and cost efficiency.
+
+| Metric | Specification |
+|---|---|
+| Blockchain | Base (Ethereum L2) |
+| Confirmation time | Sub-minute for user operations |
+| Transaction fees | Sub-cent in typical conditions |
+| RPC infrastructure | Redundant RPC endpoints with automatic failover for high availability |
+| Throughput | Engineered for thousands of transactions per second |
+
+Batch processing optimizes multi-call workflows, and the architecture is prepared for future L2 improvements without major protocol redesigns.
+
+---
+
+## 11. Use Cases
+
+### Cross-Border Commerce
+
+- Secure international payments without traditional banking friction.
+- Built-in exchange-rate mechanisms for multi-currency trades.
+- Payment method verification to support compliance workflows.
+- Neutral arbitration for disputes spanning multiple jurisdictions.
+
+### Freelance Services
+
+- Milestone or deliverable-based escrows protect both parties.
+- Buyer confirmation gates final payment release.
+- Arbitration resolves quality and delivery conflicts fairly.
+- On-chain track record builds verifiable professional reputation.
+
+### Marketplace Operations
+
+- Collateral-based merchant onboarding ensures accountability.
+- Public order books enable standing offers for high-volume traders.
+- Efficient handling of large transaction volumes at minimal cost.
+
+### Stablecoin Infrastructure
+
+- CUBT minting converts fiat-backed stablecoins into protocol-native tokens.
+- Redemption routes back to stablecoins on demand.
+- Fee optimization for users holding or staking CUBT.
+- Staking yields for token holders who secure the network.
+
+---
+
+## 12. Technical Specifications
+
+| Parameter | Details |
+|---|---|
+| **Supported Networks** | Base Sepolia (testnet) and Base Mainnet (production) |
+| **Stablecoin Support** | Primary: USDT — Secondary: USDC |
+| **Smart Contracts** | P2P Escrow, CUBT Token, Referral System, Recovery Module |
+| **Contract Addresses** | Published on-chain; verifiable on Base Sepolia (testnet) and Base Mainnet |
+
+---
+
+## Glossary
+
+| Term | Definition |
+|---|---|
+| **Escrow** | Neutral on-chain holding of funds during a transaction |
+| **Collateral** | Security deposit required from merchants |
+| **Arbitration** | Community-based dispute resolution process |
+| **CUBT** | Achylo's native utility and governance token |
+| **Mint** | Converting a stablecoin (USDT) into CUBT |
+| **Redeem** | Converting CUBT back into a stablecoin (USDT) |
+| **Referral** | Commission-based user acquisition program |
+| **Gold User** | Premium tier with enhanced benefits and fee reductions |
+| **Rate Limiting** | Controls on transaction frequency to prevent abuse |
+| **Overcollateralization** | Excess reserve backing that guarantees token stability |
+
+---
+
+## Contact and Resources
+
+- **Website:** [https://achylo.com](https://achylo.com)
+
+<Note>
+  **Disclaimer:** This white paper is for informational purposes only and does not constitute investment advice. Cryptocurrency and blockchain technologies carry inherent risks. Please conduct your own research and consult qualified financial professionals before participating in the Achylo Protocol. © 2026 Achylo Protocol. All rights reserved.
+</Note>

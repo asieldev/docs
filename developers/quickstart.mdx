@@ -1,0 +1,137 @@
+---
+title: "Achylo Developer Quickstart: Accept USDC Payments Now"
+sidebarTitle: "Quickstart"
+description: "Integrate Achylo's payment API in minutes. Create a USDC payment link, redirect your customer, and receive a webhook when payment is confirmed on-chain."
+---
+
+Achylo provides a REST API that lets you create USDC payment links, receive real-time webhook notifications, and automate your entire payment flow — without requiring your users to interact with a wallet directly. This guide walks you through the complete integration in three steps: get an API key, create a payment link, and handle the webhook confirmation.
+
+## How it works
+
+Your server calls the Achylo API to create a payment link. You redirect your customer to that link, where they pay with USDC on Base. Once the transaction is confirmed on-chain, Achylo sends a `POST` request to your webhook endpoint.
+
+```
+Your server                    Achylo API                   Your customer
+─────────────────────────────────────────────────────────────────────────
+1. POST /api/payment-links  →  Returns paymentUrl
+2. Redirect customer        →  Customer pays with USDC on Base
+3.                          →  Achylo verifies on-chain
+4.                          →  POST to your webhookUrl ✅
+```
+
+<Steps>
+
+### Get your API key
+
+Log in to [achylo.com](https://achylo.com), open your **User Profile → Developer API Keys**, and create a key with a label like `"Production"`. See [API Keys](/developers/api-keys) for full instructions.
+
+<Warning>
+  Your API key is shown **only once** at the time of creation. Copy it immediately and store it securely — for example, as an environment variable. You cannot retrieve it again after leaving the page.
+</Warning>
+
+```bash
+export ACHYLO_API_KEY="achylo_a3f2c8b9d4e1f6a7..."
+```
+
+### Create a payment link
+
+Send a `POST` request to `/api/payment-links` with your desired amount (in micro-USDC), the receiving wallet address, and optionally a description, expiry, and webhook configuration.
+
+```bash
+curl -X POST https://api.achylo.com/api/payment-links \
+  -H "X-API-Key: $ACHYLO_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d @- <<'EOF'
+{
+  "amount": "10000000",
+  "receiver": "0xYOUR_WALLET_ADDRESS",
+  "description": "Order #1234",
+  "expiresInMinutes": 1440,
+  "webhookUrl": "https://yoursite.com/webhooks/achylo",
+  "webhookSecret": "your32to64hexcharsecret"
+}
+EOF
+```
+
+The API responds with a `paymentUrl` you redirect your customer to, along with the payment details:
+
+```json
+{
+  "paymentId": "be66da05-9590-437a-a557-f83c34de45d7",
+  "paymentUrl": "https://achylo.com/#/pay/be66da05-9590-437a-a557-f83c34de45d7",
+  "amount": "10000000",
+  "receiver": "0xyour_wallet",
+  "description": "Order #1234",
+  "status": "pending",
+  "chainId": 8453,
+  "createdAt": "2026-05-06T00:00:00.000Z",
+  "expiresAt": "2026-05-07T00:00:00.000Z"
+}
+```
+
+Redirect your customer to `paymentUrl`. They complete the payment with USDC on **Base (chainId 8453)**.
+
+### Receive webhook events
+
+When the payment is confirmed on-chain, Achylo sends a `POST` request to your `webhookUrl` with the full payment details. Always verify the signature before processing. See [Webhooks](/developers/webhooks) for signature verification code.
+
+```json
+{
+  "id": "a541ad6d-b079-431c-9e40-baafb307e5ba",
+  "event": "payment.completed",
+  "created_at": "2026-05-06T23:04:21.855Z",
+  "data": {
+    "payment_link_id": "be66da05-9590-437a-a557-f83c34de45d7",
+    "amount": "10000000",
+    "amount_usdc": "10.000000",
+    "payer_address": "0xabc...",
+    "receiver": "0xyour_wallet",
+    "tx_hash": "0x75a8...",
+    "chain_id": 8453,
+    "block_number": 45573241,
+    "paid_at": "2026-05-06T23:04:21.855Z",
+    "description": "Order #1234"
+  }
+}
+```
+
+</Steps>
+
+## Amount reference
+
+All amounts in the API are denominated in **micro-USDC**. Divide by `1,000,000` to get the USDC value displayed to your customer.
+
+| USDC   | micro-USDC (`amount`) |
+|--------|-----------------------|
+| 1      | `1000000`             |
+| 5      | `5000000`             |
+| 10     | `10000000`            |
+| 100    | `100000000`           |
+| 1,000  | `1000000000`          |
+
+<Info>
+  The minimum payment amount is **1 USDC** (`1000000`) and the maximum is **100,000 USDC** (`100000000000`).
+</Info>
+
+## Authentication methods
+
+Achylo supports two authentication methods. For all server-side and programmatic integrations, use API Keys.
+
+| Method  | Header                            | Use case                           |
+|---------|-----------------------------------|------------------------------------|
+| API Key | `X-API-Key: achylo_...`           | Server-to-server, automation       |
+| JWT     | `Authorization: Bearer <token>`   | Frontend (wallet signature)        |
+
+## Next steps
+
+<CardGroup cols={3}>
+  <Card title="API Keys" icon="key" href="/developers/api-keys">
+    Create and manage your API keys, view key format and security best practices.
+  </Card>
+  <Card title="Payment Links" icon="link" href="/developers/payment-links">
+    Full API reference for creating and managing payment links.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/developers/webhooks">
+    Signature verification, retry logic, and idempotency patterns.
+  </Card>
+</CardGroup>

@@ -1,0 +1,106 @@
+---
+title: "CUBT Token — Achylo Protocol Yield-Bearing Stablecoin"
+sidebarTitle: "Overview"
+description: "CUBT is Achylo Protocol's yield-bearing stablecoin backed by USDC. It appreciates every 28 days and grants fee discounts across the protocol."
+---
+
+CUBT is Achylo Protocol's native yield-bearing stablecoin. Its initial value was pegged to the CUP (Cuban Peso) at the time of protocol launch, and from that point forward it is designed to appreciate steadily — meaning every CUBT you hold becomes worth progressively more USDC over time. Unlike holding USDC directly, CUBT puts your stable value to work inside the Achylo ecosystem.
+
+## What Is CUBT?
+
+CUBT is a stablecoin backed 1-to-1 (and beyond) by USDC held in Achylo's Treasury. When you mint CUBT, your USDC goes into the Treasury as collateral. When you redeem, the Treasury releases USDC back to you at the current exchange rate.
+
+What makes CUBT different from a plain stablecoin is its **programmatic appreciation mechanism**: the protocol is designed so that the backing per CUBT unit grows over time, not just stays flat.
+
+## How CUBT Appreciates
+
+Every **28 days**, Achylo's Treasury smart contract dedicates **25% of its accumulated funds** to increase the USDC collateral backing every circulating CUBT. This periodic reinforcement happens on-chain and is verifiable by anyone. The result is a compounding effect:
+
+- Your CUBT balance stays the same in token count.
+- Each token is backed by progressively more USDC.
+- When you redeem, you receive more USDC than you originally deposited (before fees).
+
+<Info>
+  The appreciation cycle runs every 28 days automatically. You do not need to take any action — simply hold CUBT to benefit.
+</Info>
+
+## Benefits of Holding CUBT
+
+Holding CUBT unlocks a range of protocol privileges beyond appreciation. Your discount tier is determined automatically — the protocol checks your status on every interaction and reflects it in real time in the simulator.
+
+| Benefit | Condition |
+|---|---|
+| **25% discount** on Mint & Redeem fees | Hold at least 1 CUBT |
+| **50% discount** on Mint & Redeem fees | Active staking position *(in development)* |
+| **0% fees** on all protocol operations | Gold status or fee-exempt account |
+| **Governance voting rights** | Hold any amount of CUBT |
+
+<Note>
+  Discount tiers work in order of precedence. If you qualify for multiple tiers, the most favorable one applies. Gold users and fee-exempt accounts always pay 0% — no further stacking needed.
+</Note>
+
+## CUBT vs. USDC
+
+Holding USDC keeps your purchasing power flat. Holding CUBT keeps it growing. Here is a simple comparison:
+
+| | USDC | CUBT |
+|---|---|---|
+| **Backing asset** | US Dollar (off-chain) | USDC (on-chain Treasury) |
+| **Value over time** | Stays flat | Appreciates every 28 days |
+| **Protocol fee discounts** | None | Up to 100% off |
+| **Governance rights** | None | Yes |
+| **On-chain transparency** | Depends on issuer | Fully verifiable |
+
+## How to Get CUBT
+
+You mint CUBT by depositing USDC through Achylo's **Mint & Redeem** interface:
+
+1. Navigate to **Tools → Mint and Redeem** from the main menu.
+2. Open the **Mint** tab.
+3. Enter the amount of USDC you want to convert and review the simulator output.
+4. Approve and confirm the transaction in your wallet.
+
+## How to Exit
+
+You can redeem your CUBT back to USDC at any time — there are no lock-up periods imposed by the token itself. Simply:
+
+1. Open **Tools → Mint and Redeem** and switch to the **Redeem** tab.
+2. Enter the amount of CUBT you want to exchange.
+3. Review the USDC output in the simulator and confirm the transaction.
+
+<Warning>
+  CUBT that is actively locked inside an escrow contract cannot be redeemed until the escrow is completed or cancelled. Always check your available (unlocked) balance before redeeming.
+</Warning>
+
+## Navigating the Mint & Redeem Interface
+
+The **Mint and Redeem** screen is your control panel for all CUBT operations. It contains two tabs — **Mint** and **Redeem** — plus a panel at the top showing your current USDC and CUBT balances, your active allowance, and a **Refresh** button to re-sync data from the blockchain.
+
+Below the balance panel, a statistics module displays total supply, USDC reserves, and current fee rates. If you qualify for any discount, it appears highlighted in green.
+
+### The Simulator
+
+Before you sign any transaction, the built-in simulator gives you a precise breakdown of what you will receive:
+
+- **Amount to receive** — CUBT (on Mint) or USDC (on Redeem) after all deductions.
+- **Effective Fee** — your actual fee after applicable discounts (vs. the standard base rate).
+- **Overcollateralization** — the 1% of deposited USDC routed to the Treasury on Mint (shown only when it applies to your account).
+
+<Tip>
+  Always review the simulator before confirming. It reflects your exact status — discounts, exemptions, and overcollateralization — so there are no surprises at signing time.
+</Tip>
+
+## Staking
+
+Staking CUBT to earn additional yield and maximize your fee discounts is currently **in development**. Once live, active stakers will receive a 50% discount on all Mint and Redeem fees automatically.
+
+## Get Started
+
+<CardGroup cols={2}>
+  <Card title="Mint CUBT" icon="arrow-right-to-bracket" href="/cubt/mint">
+    Deposit USDC and receive CUBT. Step-by-step guide with simulator walkthrough.
+  </Card>
+  <Card title="Redeem CUBT" icon="arrow-right-from-bracket" href="/cubt/redeem">
+    Exchange your CUBT back to USDC at any time. No lock-up periods.
+  </Card>
+</CardGroup>

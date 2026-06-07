@@ -1,0 +1,97 @@
+---
+title: "CUBT Fees and Discounts: Full Mint & Redeem Breakdown"
+sidebarTitle: "Fees & Discounts"
+description: "Learn how Achylo Protocol calculates CUBT mint and redeem fees, including automatic discounts for Gold users, active stakers, and CUBT holders."
+---
+
+Every CUBT mint and redeem operation involves a fee and, for mint operations, an additional overcollateralization component. Achylo applies these charges as flat percentages and evaluates your account's status in real time to determine whether automatic discounts apply. You never have to claim a discount manually — the protocol checks your eligibility on every interaction and the simulator shows your effective rate before you sign anything.
+
+## How Fees Are Calculated
+
+### Mint
+
+When you deposit USDC to mint CUBT, two deductions happen in sequence (if you are not exempt):
+
+1. The **mint fee** is deducted from your deposited USDC.
+2. **1% Overcollateralization** is then deducted from the remaining amount and sent to the Treasury.
+3. The remainder is converted to CUBT at the current exchange rate.
+
+```
+Step 1: after_fee     = deposit × (1 − mint fee)
+Step 2: overcollat    = after_fee × 0.01
+Step 3: CUBT received = (after_fee − overcollat) ÷ CUBT exchange rate
+```
+
+The simulator card labels these two deductions separately as **Protocol Fee** and **Overcollateralization**, so you can see exactly where each portion of your USDC goes.
+
+### Redeem
+
+When you exchange CUBT back to USDC, only one deduction applies:
+
+1. The **redeem fee** is deducted from the gross USDC value of your CUBT.
+2. The remainder is sent to your wallet.
+
+```
+USDC received = (CUBT amount × exchange rate) × (1 − redeem fee)
+```
+
+<Note>
+  There is **no overcollateralization on Redeem**. The only amount withheld from your output is the redeem fee.
+</Note>
+
+## Discount Tiers
+
+Achylo applies discounts in the following order of precedence. Only the highest applicable tier takes effect — the most favorable condition for your account always wins.
+
+| Tier | Condition | Mint Fee | Redeem Fee | Overcollateralization |
+|---|---|---|---|---|
+| **Gold status** | Active Gold status verified by the protocol | 0% | 0% | Exempt |
+| **Fee-exempt account** | Manually granted by Governance | 0% | 0% | Exempt |
+| **Active Staking** | Active stake in the staking module *(in development)* | 50% off | 50% off | Applies |
+| **CUBT Holder** | Wallet holds ≥ 1 CUBT | 25% off | 25% off | Applies |
+| **No discount** | None of the above | Standard rate | Standard rate | Applies |
+
+<Info>
+  The protocol checks all conditions automatically on every interaction. If your status changes — for example, you acquire Gold status or begin staking — your discount updates immediately on the next interaction, with no manual claim required.
+</Info>
+
+### Gold Status
+
+Gold users are verified in real time by the protocol. If your Gold status is confirmed, you pay 0% on both Mint and Redeem and are also excluded from the 1% overcollateralization on Mint. This is the highest tier and overrides all others.
+
+### Fee-Exempt Accounts
+
+A fee-exempt designation is set on a per-address basis by Governance (which is composed of Gold users, stakers, and CUBT holders). Accounts with this designation pay 0% on all operations and are excluded from overcollateralization, regardless of Gold status.
+
+### Active Staking
+
+Users with an active staking position automatically receive a **50% discount** on both mint and redeem fees. The 1% overcollateralization still applies unless they also qualify for full exemption.
+
+<Note>
+  Staking is currently **in development**. Once the staking module is live, the discount will activate automatically for all active stakers.
+</Note>
+
+### CUBT Holder Discount
+
+Holding at least **1 CUBT** in your wallet qualifies you for a **25% discount** on Mint and Redeem fees. The overcollateralization still applies at the standard 1% rate.
+
+## Overcollateralization
+
+The 1% overcollateralization is a distinct mechanism from the protocol fee. It is not revenue — it is additional USDC collateral routed to the Treasury to strengthen the backing behind every circulating CUBT.
+
+Key rules:
+
+- Applies **only on Mint**, never on Redeem.
+- Applies to all accounts **except** those with fee-exempt status or Gold status.
+- The exact amount is shown in the simulator as a separate **Overcollateralization** line before you confirm.
+
+## Dynamic Fee Updates
+
+The effective fee and overcollateralization you see in the simulator may differ from a previous session if:
+
+- The protocol has adjusted its fee rates within Governance-permitted limits.
+- Your account status has changed (e.g., you gained or lost staking eligibility, Gold status, or a fee exemption).
+
+<Tip>
+  Always check the simulator immediately before confirming a transaction. It reflects the exact parameters that will be applied on-chain at that moment — including your current discount tier and any recent protocol changes.
+</Tip>

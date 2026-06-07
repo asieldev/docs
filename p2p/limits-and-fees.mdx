@@ -1,0 +1,144 @@
+---
+title: "Achylo P2P Transaction Limits and Protocol Fees Guide"
+sidebarTitle: "Limits & Fees"
+description: "Understand Achylo's tier-based transaction limits, anti-abuse protections, and the escrow fee structure including Gold user exemptions."
+---
+
+Achylo's P2P module is designed for high-trust, high-reliability trading. Two systems work together to keep it that way: **transaction limits** prevent abuse and keep gas sponsorship sustainable, while **protocol fees** fund the gas sponsorship pool that lets you trade without ever touching ETH. This page explains both in full.
+
+---
+
+## Transaction Limits
+
+Every wallet interacting with Achylo is subject to rate controls that prevent spam, bot abuse, and accidental gas drain. These controls operate at multiple layers simultaneously.
+
+### Anti-Abuse Protection Layers
+
+Three automatic protections apply to all users regardless of tier:
+
+| Protection | Trigger | Response |
+|---|---|---|
+| **Anti-burst** | More than 3 transactions in any 10-second window | 30-second automatic cooldown |
+| **Duplicate detection** | The same action repeated within 5 seconds | Immediate block until the 5-second window passes |
+| **Progressive backoff** | 3 consecutive failed transactions | Exponential wait time, capped at a maximum of 2 minutes |
+
+<Note>
+  Even Gold users — who have unlimited daily and hourly quotas — are still subject to the anti-burst, duplicate detection, and progressive backoff protections. These are system-wide safety rails, not user-level restrictions.
+</Note>
+
+### Tier-Based Quotas
+
+In addition to the instant protections above, each user tier has its own hourly and daily quota for on-chain actions that consume the rate limit.
+
+| User Level | Requirements | Hourly Limit | Daily Limit |
+|---|---|---|---|
+| **New** | 0 completed escrows | 10 transactions | 24 transactions |
+| **Active** | 1 or more completed escrows | 20 transactions | 48 transactions |
+| **Merchant** | Registered + active collateral | 30 transactions | 300 transactions |
+| **Gold** | Verified account + Gold benefits | Unlimited | Unlimited |
+
+<Tip>
+  The fastest way to move from New to Active is to complete your first escrow — even a small one. From Active to Merchant, register via the [Merchant Role](/p2p/merchant) page and deposit collateral.
+</Tip>
+
+### Actions That Do NOT Count Against Your Quota
+
+The following actions are always permitted and never consume your hourly or daily quota, regardless of your tier:
+
+- Creating a private escrow
+- Accepting a public order
+- Releasing funds
+- Confirming payment
+- Claiming funds (reclaim timeout)
+- Initiating a dispute
+- Voting in a dispute
+
+<Info>
+  These exemptions ensure that the core trading lifecycle — the actions that move value between parties — is never blocked by rate limits, even if you have hit your quota for other actions.
+</Info>
+
+### Tips for Managing Your Limits
+
+1. **Plan bulk operations** — if you need to perform multiple similar actions, space them out to avoid triggering the anti-burst protection.
+2. **Avoid automation scripts** — bots that fire multiple identical transactions within seconds will be blocked by duplicate detection and backoff, defeating their own purpose.
+3. **Monitor your tier** — if you consistently hit your hourly limit, consider completing more escrows to reach Active status, or registering as a Merchant for a significantly higher quota.
+
+---
+
+## Protocol Fees
+
+Achylo sponsors all on-chain gas costs for you — you never need to hold ETH to trade. Protocol fees are the mechanism that makes this possible: a small USDC amount is collected at the moment a trade completes, covering the gas Achylo paid on your behalf throughout the escrow lifecycle.
+
+### What Fees Are Used For
+
+- Paying on-chain gas when the protocol signs sponsored actions on your behalf
+- Maintaining and monitoring the gas pool to guarantee availability at all times
+- Sustaining the Transaction Guard and other anti-abuse infrastructure
+
+### When Fees Are Charged
+
+The escrow contract collects the fee **once**, at the point of successful completion. There are only two moments this can happen:
+
+1. **When the seller releases funds** — the fee is deducted from the escrow balance before the net USDC is sent to the buyer.
+2. **After dispute resolution** — if an order enters dispute, the fee is deducted from the resolved amount before it is sent to the winner.
+
+The following actions are **never** charged a fee by the escrow contract:
+
+- Creating a public or private order
+- Requesting a cancellation
+- Registering as a Merchant
+- Accepting a public order (fee is charged only at release)
+
+### Who Pays
+
+The user who executes the fee-triggering action — typically the seller clicking "Release Funds" — is the one from whose escrow balance the fee is deducted. The buyer receives the net amount after the fee has been subtracted.
+
+### Gold Users: Zero Fees
+
+<Info>
+  **Gold users pay 0% in protocol fees.** If you hold Gold status, the escrow contract recognises your account and skips the fee deduction entirely. You can obtain Gold status by purchasing a Gold membership or through the monthly referral programme.
+</Info>
+
+When you are Gold, every modal that would normally show a fee instead displays the **⭐ Gold User — No protocol fees** badge. You save the fee on every single trade.
+
+### Fee Structure
+
+Fees follow a two-tier structure based on order size:
+
+| Order Size | Fee Type | Example |
+|---|---|---|
+| Less than 100 USDC | Fixed flat fee | 0.1 USDC |
+| 100 USDC or more | Percentage of order value | 0.1% of the escrow amount |
+
+<Note>
+  The exact fee values are defined by Achylo's governance (composed of Gold users, stakers, and token holders) and can change over time. Always verify the current fee before executing a large trade.
+</Note>
+
+**To check the current fee:** navigate to **Stats → Protocol → P2P Escrow Protocol** and look at the **Fixed Fee** and **Percentage Fee** fields.
+
+### CUBT Currency: 50% Fee Discount
+
+If you are trading using **CUBT** as the fiat currency on any order, Achylo automatically applies a **50% discount** on the P2P protocol fee at the time of settlement. This discount is calculated and shown in the fee summary modal before you confirm.
+
+### How Fees Are Displayed in the UI
+
+Before you confirm any fee-triggering action, Achylo shows you the exact cost:
+
+- **Modal summary** — each action modal (Accept Order, Release Funds, etc.) includes a breakdown showing the gross escrow amount, the fee, and the net amount the buyer will receive.
+- **Tooltips** — hover over the fee line for an explanation of where the fee goes and how it was calculated.
+- **Gold badge** — if you are a Gold user, the badge replaces the fee line entirely to confirm you are exempt.
+
+### Quick Reference
+
+| Question | Answer |
+|---|---|
+| Who sets the fee rate? | Achylo governance (Gold users, stakers, and token holders). Published on the Stats page. |
+| Who pays the fee? | The user executing the fee-triggering action (typically the seller). |
+| What is the fee used for? | Covering on-chain gas costs and maintaining the gas sponsorship pool. |
+| When is the fee charged? | At the moment funds are released or after dispute resolution — once per escrow. |
+| How can I avoid the fee? | Hold Gold status. CUBT orders receive a 50% discount. |
+| Where do I check the current rate? | Stats → Protocol → P2P Escrow Protocol |
+
+<Warning>
+  Always review the fee summary in the modal before confirming a release or accepting a large order. Fee rates are governed on-chain and can be updated; what applied last week may differ from today's rate.
+</Warning>

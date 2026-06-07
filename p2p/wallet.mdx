@@ -1,0 +1,176 @@
+---
+title: "Managing Your Achylo Wallet: Deposits, Sends, and Security"
+sidebarTitle: "Your Wallet"
+description: "Understand how your Achylo self-custody wallet works, how to deposit from multiple chains, withdraw USDC, and keep your assets secure on Base."
+---
+
+Your Achylo wallet is a **self-custody smart account** on the Base blockchain. From the moment it is created, you — and only you — control it. Achylo Protocol has zero access to your funds, cannot freeze your assets, and cannot move tokens on your behalf. This page explains how to navigate the wallet interface, fund your account from multiple chains, and keep your assets secure.
+
+---
+
+## Self-Custody: You Own Your Wallet
+
+<Note>
+  **Achylo Protocol does not own or control your wallet.** The protocol uses smart account technology to give you a convenient on-chain wallet, but the private key belongs to you alone. Achylo cannot recover funds on your behalf, reverse transactions, or access your balance under any circumstance.
+</Note>
+
+This design is intentional. Unlike centralized exchanges that hold your funds in their wallets, Achylo gives you genuine financial sovereignty. Every action — sending, receiving, trading — is signed by your key and executed on Base blockchain.
+
+---
+
+## The "My Wallet" Interface
+
+Access your wallet by opening your profile in the Achylo app. The **My Wallet** panel gives you a complete view of your account and all the tools you need to manage it.
+
+### Account Information
+
+| Field | Description |
+|---|---|
+| **Wallet Address** | Your unique on-chain identifier on Base. Use the copy button to grab the full address when sharing it with others or setting up deposits. |
+| **USDC Balance** | Your current total balance of USDC — the protocol's base currency. Displayed in human-readable USDC (e.g., `25.50 USDC`). |
+
+<Info>
+  Amounts in the Achylo API and smart contracts are expressed in **micro-USDC** (6 decimal places), where `1,000,000` = `1.00 USDC`. The app interface always converts this to the human-readable form for you.
+</Info>
+
+### Wallet Functions
+
+<Tabs>
+  <Tab title="Send">
+    Transfer your USDC to any other wallet address or exchange. Use this to move funds out of the protocol, pay someone directly, or consolidate balances.
+
+    **How to send:**
+    1. Click **Send** in the My Wallet panel.
+    2. Enter the recipient's wallet address.
+    3. Enter the amount in USDC.
+    4. Confirm the transaction — gas is sponsored by the protocol, so no ETH is required.
+
+    <Warning>
+      Always double-check the recipient address before confirming. On-chain transactions are irreversible — there is no undo button.
+    </Warning>
+  </Tab>
+  <Tab title="Receive">
+    Display your wallet address and QR code so others can send you USDC.
+
+    **How to receive:**
+    1. Click **Receive** in the My Wallet panel.
+    2. Share your wallet address or QR code with the sender.
+    3. Ensure the sender is sending **USDC on the Base network**.
+
+    <Warning>
+      Always confirm that funds are sent on the **Base network**. USDC sent on other networks (Ethereum mainnet, Solana, etc.) without using the multi-chain deposit feature will not appear in your balance.
+    </Warning>
+  </Tab>
+  <Tab title="Buy / Sell">
+    Access the built-in on-ramp and off-ramp directly from your wallet panel.
+
+    - **Buy:** Acquire more USDC using a credit card, bank transfer, or other supported payment method.
+    - **Sell:** Liquidate USDC to fiat currency through the integrated off-ramp.
+
+    This is the fastest way to move between traditional finance and your Achylo wallet without leaving the app.
+  </Tab>
+</Tabs>
+
+---
+
+## Depositing Funds
+
+You can fund your Achylo wallet from any external source — a centralized exchange, another self-custody wallet, or a different blockchain entirely.
+
+### Direct Deposit (Base Network)
+
+The simplest method: send USDC directly from any wallet or exchange that supports the **Base network**.
+
+1. Copy your wallet address from the **Receive** panel.
+2. Initiate a withdrawal from your exchange or external wallet to that address.
+3. Select **Base** as the destination network.
+4. Your USDC will appear in your balance once the transaction is confirmed on-chain.
+
+### Multi-Chain Deposits
+
+If your funds are on a different blockchain, use Achylo's **multi-chain deposit** feature to bridge them automatically — no manual bridging required.
+
+#### Supported Chains and Tokens
+
+| Chain | Accepted Tokens |
+|---|---|
+| **Ethereum** | ETH, USDC, USDT, DAI |
+| **Arbitrum** | ETH, USDC, USDT |
+| **Optimism** | ETH, USDC |
+| **Polygon** | POL, USDC, USDT |
+| **BSC** | BNB, USDT, BUSD |
+| **Avalanche** | AVAX, USDC |
+
+#### How the Conversion Works
+
+1. **Select your source chain** in the deposit interface.
+2. **Send tokens** — native (ETH, BNB, AVAX, etc.) or stablecoins (USDT, USDC, DAI).
+3. **Automatic bridging and swap** — the protocol finds the optimal route and converts everything to USDC.
+4. **Receive USDC on Base** — funds land directly in your Achylo wallet, ready to trade.
+
+#### Benefits
+
+- **No manual bridges:** Skip the hassle of navigating multiple bridge interfaces.
+- **No gas on other networks:** The protocol optimizes routing to minimize your costs.
+- **Capital unification:** One balance, one currency (USDC), one network (Base).
+- **Global access:** Participate in the Achylo ecosystem from any major blockchain.
+
+<Note>
+  There are **no additional platform fees** for depositing or withdrawing. Achylo does not charge you to move funds in or out of your wallet.
+</Note>
+
+---
+
+## Security and Configuration
+
+### Exporting Your Private Key
+
+The **Export Private Key** function gives you the raw cryptographic secret that controls your wallet. You would use this to import your wallet into another application (e.g., MetaMask, Rabby) or to back it up in a secure location.
+
+<Warning>
+  **Treat your private key like the master key to a vault.**
+
+  - **Never share it with anyone** — not Achylo support, not a moderator, not a friend.
+  - Anyone who obtains your private key has **full, irrevocable control** over all assets in your wallet.
+  - Achylo will **never** ask you for your private key.
+  - Store it offline in a secure location (e.g., written on paper in a safe, or in a reputable password manager that never syncs to the cloud).
+</Warning>
+
+To export your private key:
+1. Open **My Wallet** in the app.
+2. Click **Export Private Key**.
+3. Complete the identity verification step the app requires.
+4. Copy the key and store it securely immediately.
+
+### Disconnecting Your Session
+
+Clicking **Disconnect** ends your current wallet session in the dApp. Your wallet and funds remain intact on-chain — disconnecting simply removes the active connection between your browser and the smart account.
+
+<Tip>
+  Disconnect your wallet whenever you are using a shared or public device. It prevents anyone with physical access to the browser from interacting with your wallet.
+</Tip>
+
+---
+
+## Security Best Practices
+
+Your wallet's security is entirely your responsibility. Achylo cannot recover lost funds or reverse unauthorized transactions. Follow these guidelines:
+
+- **Back up your private key** in a secure, offline location immediately after wallet creation.
+- **Never share your private key or recovery details** with anyone, for any reason.
+- **Verify wallet addresses carefully** before every send — even one wrong character sends funds to the wrong place permanently.
+- **Disconnect after each session** on shared devices.
+- **Beware of phishing** — only access Achylo at [https://achylo.com](https://achylo.com). Check the URL every time.
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="P2P Getting Started" icon="store" href="/p2p/getting-started">
+    Start trading USDC against local fiat currencies on the P2P marketplace.
+  </Card>
+  <Card title="CUBT Token" icon="coins" href="/cubt/overview">
+    Hold CUBT to earn a 50% protocol fee discount and access staking rewards.
+  </Card>
+</CardGroup>

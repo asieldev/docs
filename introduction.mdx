@@ -1,0 +1,119 @@
+---
+title: "Achylo Protocol: Trustless P2P Escrow for LATAM Markets"
+sidebarTitle: "Introduction"
+description: "Achylo Protocol is a decentralized P2P escrow platform on Base blockchain. Trade USDC against local fiat currencies with smart contract protection."
+---
+
+Achylo Protocol is a decentralized peer-to-peer escrow system built on the **Base blockchain**, purpose-built for LATAM and emerging markets. It lets anyone trade USDC against local fiat currencies — from Cuban Pesos to Colombian Pesos to Venezuelan Bolívars — with every trade secured by smart contracts instead of a central intermediary. No bank, no middleman, no counterparty trust required: the protocol's escrow logic enforces the rules on-chain.
+
+Whether you are an individual looking to move value across borders, a merchant who wants to accept crypto payments, or a developer integrating payment infrastructure into your product, Achylo Protocol provides the rails you need.
+
+---
+
+## Core Features
+
+Achylo Protocol is built around six pillars that together cover the full lifecycle of decentralized value exchange.
+
+<CardGroup cols={2}>
+  <Card title="P2P Marketplace" icon="store" href="/p2p/getting-started">
+    Trade USDC directly with other users against 18+ local fiat currencies. Every trade is protected by on-chain smart contract escrow — funds only release when both parties confirm.
+  </Card>
+  <Card title="CUBT Token" icon="coins" href="/cubt/overview">
+    The native utility token of the Achylo ecosystem. Hold CUBT to receive a **50% discount on protocol fees**, participate in governance, and unlock premium features across the platform.
+  </Card>
+  <Card title="Payment Links" icon="link" href="/developers/payment-links">
+    Generate shareable payment links that let customers pay you in USDC on Base. No code required — ideal for freelancers, small businesses, and merchants in emerging markets.
+  </Card>
+  <Card title="Payment Widgets" icon="window" href="/developers/payment-widgets">
+    Embeddable checkout components you can drop into any web application. Accept USDC payments with a few lines of code and let your customers pay from any supported chain.
+  </Card>
+  <Card title="Webhooks" icon="bolt" href="/developers/webhooks">
+    Receive real-time event notifications for trades, payments, and escrow state changes. Build automated workflows on top of Achylo's payment infrastructure without polling.
+  </Card>
+  <Card title="Staking" icon="layer-group" href="/cubt/overview">
+    Stake CUBT tokens to earn protocol rewards, deepen your fee discounts, and contribute to the security and decentralization of the Achylo ecosystem.
+  </Card>
+</CardGroup>
+
+---
+
+## Supported Network
+
+Achylo Protocol is deployed on **Base**, an Ethereum Layer 2 network built by Coinbase and designed for fast, low-cost transactions.
+
+| Environment | Network | Chain ID |
+|---|---|---|
+| Production | Base Mainnet | `8453` |
+| Testing | Base Sepolia | `84532` |
+
+<Note>
+  All protocol activity — escrow contracts, CUBT token transfers, payment settlements — runs on Base. Even if you deposit funds from another chain (Ethereum, Arbitrum, Polygon, and more), they are automatically bridged and converted to USDC on Base before entering the protocol.
+</Note>
+
+### Base Currency: USDC
+
+Every trade and payment on Achylo is denominated in **USDC** (USD Coin). Amounts throughout the protocol are expressed in **micro-USDC**, where:
+
+```
+1 USDC = 1,000,000 micro-USDC
+```
+
+This means a value of `5000000` in the API or smart contract represents exactly **5.00 USDC**. Keep this in mind when building integrations or reading on-chain data.
+
+### Gas-Free Experience
+
+Achylo Protocol **sponsors gas fees** for all on-chain interactions. You do not need ETH or any native token to pay for transactions — just USDC in your wallet and you are ready to trade.
+
+---
+
+## Supported Fiat Currencies
+
+The P2P marketplace supports **18+ local fiat currencies**, covering the major economies of LATAM and key global currencies:
+
+`CUP` · `CUBT` · `MLC` · `USD` · `COP` · `EURO` · `GBP` · `CAD` · `MXN` · `BRL` · `PEN` · `DOP` · `PYG` · `ECS` · `BOB` · `ARS` · `VES`
+
+See the full [currency reference table](/p2p/getting-started#supported-fiat-currencies) in the P2P Getting Started guide.
+
+---
+
+## User Tiers
+
+Achylo Protocol uses a tiered user system that unlocks additional features and privileges as you participate more actively in the ecosystem.
+
+| Tier | Description |
+|---|---|
+| **New** | Default tier for all newly connected wallets |
+| **Active** | Granted after completing a minimum number of trades |
+| **Merchant** | For businesses and high-volume traders accepting payments |
+| **Gold** | Top-tier users with access to premium features and reduced fees |
+
+---
+
+## How to Navigate These Docs
+
+These docs are organized by audience. Jump to the section that matches your goal:
+
+<CardGroup cols={2}>
+  <Card title="P2P Getting Started" icon="rocket" href="/p2p/getting-started">
+    Connect your wallet, deposit USDC, and place your first trade on the P2P marketplace.
+  </Card>
+  <Card title="Your Wallet" icon="wallet" href="/p2p/wallet">
+    Understand how your self-custody Achylo wallet works, how to deposit from multiple chains, and how to keep your funds secure.
+  </Card>
+  <Card title="CUBT Token" icon="coins" href="/cubt/overview">
+    Learn how to acquire CUBT, stake it for rewards, and use it to cut your protocol fees in half.
+  </Card>
+  <Card title="Developer Quickstart" icon="code" href="/developers/quickstart">
+    Integrate Achylo payment infrastructure into your application. Start with Payment Links, then graduate to Widgets and Webhooks.
+  </Card>
+  <Card title="Payment Links" icon="link" href="/developers/payment-links">
+    Create no-code payment requests and share them with customers anywhere in the world.
+  </Card>
+  <Card title="Community" icon="users" href="/community">
+    Join the Achylo community, get support, and follow protocol updates.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Ready to jump in? Head to [achylo.com](https://achylo.com), connect your wallet, and the app will guide you through the rest.
+</Tip>

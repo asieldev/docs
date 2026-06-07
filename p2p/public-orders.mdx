@@ -1,0 +1,106 @@
+---
+title: "Creating and Accepting Public Orders on Achylo P2P"
+sidebarTitle: "Public Orders"
+description: "Learn how to post public buy and sell orders on Achylo P2P as a merchant, and how any user can browse, filter, and accept open listings."
+---
+
+Public orders are the core of the Achylo P2P marketplace. Merchants post listings that specify a currency, exchange rate, payment methods, and trade limits — and any user (or Merchant-only counterparties) can browse and accept those listings. Every accepted order is backed by a smart-contract escrow, so neither party needs to trust the other: the protocol enforces the rules on-chain.
+
+## Creating a Public Order (Merchants Only)
+
+Creating a public order is a Merchant-exclusive feature. If you do not see the **"Create Public Order"** button, complete your Merchant registration first via the [Merchant Role](/p2p/merchant) page.
+
+<Steps>
+  <Step title="Open the Create Public Order modal">
+    From the marketplace, click **"Create Public Order"**. The modal will display your current collateral, your 2x order capacity, and how much available capacity remains for new orders.
+  </Step>
+  <Step title="Select the Order Type">
+    Choose the direction of your trade:
+    - **Buy USDC** — you are buying USDC and will pay fiat to the counterparty.
+    - **Sell USDC** — you are selling USDC and will receive fiat from the counterparty.
+  </Step>
+  <Step title="Choose a Fiat Currency">
+    Select the fiat currency for this order. Supported options include:
+
+    | Currency | Notes |
+    |---|---|
+    | CUP | Cuban Peso |
+    | CUBT | Cuban Token — **50% discount on P2P fees** |
+    | MLC | Moneda Libremente Convertible |
+    | USD Clásica | Classic USD |
+    | COP | Colombian Peso |
+    | USD | US Dollar |
+    | EUR | Euro |
+    | GBP | British Pound |
+    | MXN | Mexican Peso |
+    | ARS | Argentine Peso |
+    | And more | Additional currencies listed in the selector |
+  </Step>
+  <Step title="Set the Exchange Rate">
+    Enter how much fiat the counterparty pays (or receives) per 1 USDC. The valid range is **0.01 to 1,000,000** fiat units per USDC.
+  </Step>
+  <Step title="Define Min and Max Amounts per Transaction">
+    - **Min Amount** — the smallest USDC value a user can trade in a single interaction with this order.
+    - **Max Amount** — the largest USDC value a user can trade in a single interaction.
+
+    Setting a sensible range prevents micro-transactions and protects you from single trades that exceed your risk appetite.
+  </Step>
+  <Step title="Set the Total Available Amount">
+    This is the total USDC pool available across all trades on this order. For **Buy orders**, no USDC is locked from your wallet — the capacity is backed by your Merchant collateral. For **Sell orders**, the USDC you specify will be drawn from your wallet when the escrow is funded.
+  </Step>
+  <Step title="Choose Payment Methods">
+    Select up to **5 payment methods** you accept. Examples include Zelle, Pix, Bandec, bank transfer, and others available in the selector. Providing multiple methods increases the number of users who can trade with you.
+  </Step>
+  <Step title="Set the Reclaim Timeout">
+    This is the window of time the buyer has to complete their fiat payment before you, as the seller, can reclaim the locked USDC. The range is **15 minutes to 28 days**. If left blank, the protocol default applies. Choose a timeout that gives your counterparty enough time to pay via your selected methods.
+  </Step>
+  <Step title="(Optional) Enable Merchant Only">
+    Toggle the **Merchant Only** switch to restrict your order so that only other registered Merchants can accept it. Use this option when you prefer counterparties with proven skin-in-the-game and higher trading limits.
+  </Step>
+  <Step title="Publish the order">
+    Review the summary and click **"Create Order"**. Confirm the transaction in your wallet. Your order will appear live in the Marketplace tab for eligible users.
+  </Step>
+</Steps>
+
+### Merchant-Only Orders
+
+Orders marked as Merchant Only display a **red warning badge** in the marketplace listing. If you see this badge and do not yet hold Merchant status, you must register before you can accept the order.
+
+<Note>
+  Merchant-only orders provide an extra layer of trust: every counterparty has collateral on the line and is subject to the same Merchant accountability standards.
+</Note>
+
+---
+
+## Accepting a Public Order
+
+Anyone with a connected wallet can browse the marketplace and accept an open order. The process creates a new escrow smart contract that locks the seller's USDC until both parties fulfill their obligations.
+
+<Steps>
+  <Step title="Navigate to the Marketplace tab">
+    Go to the **Marketplace** tab on the main page. Use the filters to narrow orders by fiat currency, order type (Buy/Sell), or other criteria.
+  </Step>
+  <Step title="Find an order that suits you">
+    Review the order card: check the exchange rate, supported payment methods, min/max amounts, and whether the order is Merchant Only. Click **"Accept Order"** on your chosen listing.
+  </Step>
+  <Step title="Enter the trade amount">
+    In the acceptance modal, enter the USDC amount you want to trade. The amount must fall within the order's minimum and maximum limits. Use the **MAX** button to automatically fill the maximum available amount.
+  </Step>
+  <Step title="Provide payment details (Buy orders)">
+    If you are accepting a **Buy USDC** order (meaning the Merchant is buying and you are selling USDC), enter your fiat account details — such as your bank account number, phone number, or wallet address — so the Merchant knows where to send your fiat payment.
+  </Step>
+  <Step title="Review the fee summary">
+    Before confirming, the modal displays a full transaction summary including the escrow fee. If you are trading with **CUBT**, the app automatically applies the **50% fee discount**. Verify all figures are correct.
+  </Step>
+  <Step title="Confirm and create the escrow">
+    Click **"Accept Order"** and confirm in your wallet. The dApp will notify you once the escrow smart contract is successfully created. Your trade will then appear in the **Active Orders** section.
+  </Step>
+</Steps>
+
+<Warning>
+  Once you accept an order and the escrow is created, USDC is locked on-chain. Make sure you are ready to complete the trade before confirming.
+</Warning>
+
+<Tip>
+  If you are operating with CUBT as the fiat currency, Achylo automatically applies a **50% discount** on protocol fees — saving you money on every completed trade.
+</Tip>

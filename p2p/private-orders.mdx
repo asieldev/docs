@@ -1,0 +1,87 @@
+---
+title: "Creating Private P2P Escrow Orders on Achylo Protocol"
+sidebarTitle: "Private Orders"
+description: "Create a private escrow with a trusted counterparty on Achylo. Funds are locked in a smart contract and only released when both parties confirm."
+---
+
+Private orders let you trade directly with a specific, trusted counterparty without exposing your offer to the public marketplace. You agree on the details off-chain — price, currency, payment method — and then use Achylo's smart-contract escrow to enforce the settlement on-chain. The result is the same tamper-proof protection you get with public orders, but with full privacy and direct control over who you trade with.
+
+## Private Orders vs. Public Orders
+
+Understanding the distinction helps you choose the right tool for each situation.
+
+| Feature | Public Order | Private Order |
+|---|---|---|
+| Visible in Marketplace | ✅ Yes — any eligible user can find and accept it | ❌ No — invisible to everyone except the counterparty |
+| Counterparty selection | Open to all (or Merchants only) | You specify exactly one wallet address |
+| Requires Merchant role | Yes, to create | No — any user can create a private escrow |
+| Smart-contract protection | ✅ Yes | ✅ Yes |
+
+<Info>
+  Private orders are ideal when you already have a buyer or seller you trust — a friend, a business contact, or a regular trading partner — and you simply want the security of an on-chain escrow without the overhead of a marketplace listing.
+</Info>
+
+## Creating a Private Escrow
+
+<Steps>
+  <Step title="Go to Active Orders">
+    From the main dashboard, navigate to the **Active Orders** tab.
+  </Step>
+  <Step title="Open the Private Order panel">
+    Click the **"Private Order"** button in the upper-right corner of the Active Orders tab. The **Create New Escrow** modal will open.
+  </Step>
+  <Step title="Enter the USDC Amount">
+    Enter the amount of USDC you are selling. These funds will be locked in the escrow smart contract the moment you fund the escrow and will only be released when you manually confirm the release.
+  </Step>
+  <Step title="Enter the Counterparty Address">
+    Paste your counterparty's wallet address. This is the only address that will be able to see and interact with this private order on their dashboard. Double-check the address carefully — on-chain transfers cannot be reversed.
+  </Step>
+  <Step title="Set the Exchange Rate">
+    Enter the agreed fiat-to-USDC exchange rate — that is, how much fiat currency your counterparty will pay per 1 USDC.
+  </Step>
+  <Step title="Choose the Fiat Currency">
+    Select the fiat currency in which your counterparty will pay you (for example, CUP, USD, EUR, COP, etc.).
+  </Step>
+  <Step title="Enter your Fiat Card Details">
+    Provide your bank account number, card details, or any other fiat payment identifier where you expect to receive the fiat payment. This information is shared only with your specified counterparty.
+  </Step>
+  <Step title="Set the Reclaim Timeout (Optional)">
+    Define how long you are willing to wait before you can reclaim your locked USDC if the counterparty does not pay. The minimum value is **30 minutes**. If you leave this field blank, the protocol default of 30 minutes applies. For trusted counterparties you may want to set a longer window to give them more time.
+  </Step>
+  <Step title="Create the Escrow">
+    Click **"Create Escrow"** (Step 1) and confirm the transaction in your wallet. You will see a toast notification such as *"Escrow created…"* confirming the contract was deployed on-chain.
+  </Step>
+  <Step title="Fund the Escrow">
+    After creation, click **"Fund Escrow"** (Step 2) and confirm the second transaction. This transfers your USDC into the smart contract, locking it until you release it or the timeout expires. You will see a *"Escrow funded…"* toast notification when successful.
+  </Step>
+</Steps>
+
+<Note>
+  The two-step flow — **Create** then **Fund** — is intentional. It gives you a moment to verify all the details on-chain before your USDC is actually committed to the contract.
+</Note>
+
+## What Happens Next
+
+Once the escrow is funded:
+
+- **Only your counterparty** can see this order in their Active Orders dashboard. No other user has visibility.
+- If your counterparty has notifications enabled, they will receive an **automatic alert** that a private escrow awaits them.
+- The trade then follows the standard [Buy & Sell flow](/p2p/buy-and-sell): the counterparty sends fiat, confirms payment in the app, and you release the USDC once you verify receipt.
+
+## Privacy and Security Guarantees
+
+<Accordion title="Who can see my private order?">
+  Only you and the wallet address you specified as the counterparty can see this order. It does not appear in the public marketplace under any circumstances.
+</Accordion>
+
+<Accordion title="Is my fiat card data stored on-chain?">
+  Fiat card details are stored in the escrow contract and visible only to your counterparty. They are not broadcast to the general marketplace or indexed publicly.
+</Accordion>
+
+<Accordion title="Do private orders have the same smart-contract protection as public orders?">
+  Yes. Private escrows use the exact same Achylo escrow contract as public orders, including the dispute resolution system. If your counterparty does not release funds or refuses to cooperate, you can initiate a dispute through the same process.
+</Accordion>
+
+<Accordion title="What happens if the counterparty never pays?">
+  Once the reclaim timeout expires without the counterparty confirming payment, you can reclaim your locked USDC directly from the contract — no permission from the counterparty is needed.
+</Accordion>

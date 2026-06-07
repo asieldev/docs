@@ -1,0 +1,97 @@
+---
+title: "Mint CUBT: Convert USDC to Yield-Bearing Stablecoin"
+sidebarTitle: "Mint CUBT"
+description: "Deposit USDC to mint CUBT on Achylo Protocol. Use the built-in simulator to preview your exact output before signing the transaction."
+---
+
+Minting CUBT converts your USDC into Achylo's yield-bearing stablecoin in a single on-chain operation. The process is designed to be transparent: before you sign anything, the simulator shows you exactly how many CUBT you will receive, what fee applies to your account, and whether any overcollateralization is deducted. This page walks you through each step from opening the interface to seeing your updated balance.
+
+## Prerequisites
+
+Before minting, make sure you have the following in place:
+
+- **Wallet connected** to the **Base** or **Base Sepolia** network. The interface will prompt you to switch networks if you are on the wrong one.
+- **Sufficient USDC balance** in your wallet to cover the amount you want to mint plus any applicable fees.
+
+<Note>
+  Allowance management is handled automatically. If this is your first mint or your current allowance is too low, the interface will guide you through an approval step before minting.
+</Note>
+
+## Step-by-Step: Minting CUBT
+
+<Steps>
+  <Step title="Open Mint and Redeem">
+    From the main navigation menu, select **Mint and Redeem**. The interface loads with two tabs at the top: **Mint** and **Redeem**. Make sure you are on the **Mint** tab.
+  </Step>
+
+  <Step title="Enter the USDC amount">
+    Type the amount of USDC you want to deposit in the input field. You can also use the quick-select buttons to fill the field instantly:
+
+    - **25%** — one quarter of your USDC balance
+    - **50%** — half your balance
+    - **75%** — three quarters of your balance
+    - **100%** — your full available balance
+  </Step>
+
+  <Step title="Review the simulator">
+    As soon as you enter an amount, the simulator card updates in real time. Check the following before proceeding:
+
+    | Simulator Field | What It Means |
+    |---|---|
+    | **CUBT to receive** | Net CUBT you will receive after all deductions |
+    | **Effective Fee** | Your actual fee rate after discounts (vs. the standard base rate) |
+    | **Overcollateralization** | 1% of your deposited USDC routed to the Treasury (shown if applicable) |
+
+    If you qualify for a discount, the effective fee appears lower than the standard fee and is highlighted in green.
+  </Step>
+
+  <Step title="Approve and Mint (or Mint directly)">
+    Depending on your current allowance, you will see one of two buttons:
+
+    - **Approve & Mint** — shown when this is your first mint or your allowance is insufficient. Clicking this triggers two automatic steps: the dApp first submits an ERC-20 approval transaction, then — once that is confirmed — it submits the mint transaction. You will see toast notifications guiding you through each step:
+      - *"Step 1/2 — Approving USDC…"*
+      - *"Step 2/2 — Minting CUBT…"*
+      - *"Mint successful"*
+
+    - **Mint** — shown when your existing allowance already covers the amount. This submits a single transaction with no prior approval needed.
+  </Step>
+
+  <Step title="Confirm in your wallet">
+    Your connected wallet (MetaMask or any compatible wallet) will display a confirmation prompt for each transaction. Review the details and click **Confirm**. Do not close the browser tab while the transaction is pending.
+  </Step>
+
+  <Step title="Wait for on-chain confirmation">
+    After you confirm, the interface monitors the transaction on-chain. Once the block is confirmed, your CUBT and USDC balances refresh automatically. The statistics panel also updates to reflect the new total supply and reserve figures.
+  </Step>
+</Steps>
+
+## Understanding Overcollateralization
+
+When the simulator shows an **Overcollateralization** line, it means that **1% of the USDC you deposit is routed directly to the Treasury** as additional backing for the CUBT supply. This amount does not get converted into CUBT — it stays in the Treasury to strengthen the protocol's collateral ratio over time.
+
+The mint fee is deducted first, and the 1% overcollateralization is then taken from the remaining amount. **Example:** If you deposit 100 USDC with a 2% mint fee and overcollateralization applies:
+
+- 2 USDC → Protocol fee
+- 0.98 USDC → Treasury (1% of the remaining 98 USDC)
+- 97.02 USDC → converted to CUBT at the current exchange rate
+
+<Note>
+  Overcollateralization only applies on **Mint**, not on Redeem. Users with fee-exempt status or Gold status are excluded from this deduction.
+</Note>
+
+## Fee Exemption and Discounts
+
+The mint fee shown in the simulator is already adjusted for your account's status. The following conditions reduce or eliminate fees:
+
+- **Fee-exempt account** — granted by Governance; results in 0% mint fee and no overcollateralization.
+- **Gold status** — verified automatically by the protocol; results in 0% fees.
+- **Active staking** — 50% discount on the mint fee *(staking is currently in development)*.
+- **CUBT holder (≥ 1 CUBT)** — 25% discount on the mint fee.
+
+See [Fees & Discounts](/cubt/fees) for the full breakdown of how tiers interact.
+
+## Refreshing Your Balance
+
+<Tip>
+  If your displayed balance does not match what you see in your wallet after an operation — or if you switched networks — click the **Refresh** button at the top of the Mint & Redeem panel. This forces the interface to re-query the blockchain and display your current balances, allowance, and discount status.
+</Tip>

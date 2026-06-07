@@ -1,0 +1,90 @@
+---
+title: "Achylo P2P Merchant Registration and Collateral Guide"
+sidebarTitle: "Merchant Role"
+description: "Register as an Achylo merchant to create public orders and accept trades. Learn about the collateral system and 2x order capacity multiplier."
+---
+
+The Merchant role is Achylo's gateway to active participation in the P2P marketplace. As a Merchant, you can create your own public buy and sell orders, set your own exchange rates, define payment methods, and accept trade requests from other users — all backed by on-chain escrow. This page explains how to register, how your collateral works, and how to manage your Merchant status safely.
+
+## What Being a Merchant Unlocks
+
+By registering as a Merchant you gain access to capabilities that standard users do not have:
+
+- **Create public orders** — post Buy USDC or Sell USDC listings that appear in the Achylo marketplace for any trader to discover and accept.
+- **Accept incoming trades** — respond to trade requests on your own orders and manage the escrow lifecycle from start to finish.
+- **Access Merchant-only orders** — some orders in the marketplace are restricted to registered Merchants only; the Merchant role lets you see and accept them.
+- **Higher transaction limits** — Merchants enjoy a dedicated quota of 30 transactions per hour and 300 per day, far above the New and Active user tiers.
+
+## Registering as a Merchant
+
+Registration takes only a few moments and requires you to lock a USDC deposit as collateral to guarantee your trading capacity.
+
+<Steps>
+  <Step title="Find the registration button">
+    On the main marketplace page, click the **"Become a Merchant"** button. A registration modal will open.
+  </Step>
+  <Step title="Check your available balance">
+    The modal displays your current wallet balance in the upper-left corner. Make sure you have enough USDC to cover the minimum collateral deposit.
+  </Step>
+  <Step title="Enter your collateral amount">
+    Type the amount of USDC you want to lock as collateral. The minimum accepted amount is **100 USDC**. The more you deposit, the higher your order capacity will be (see the 2x multiplier below).
+  </Step>
+  <Step title="Submit your registration">
+    Click **"Register as Merchant"** and confirm the transaction in your wallet. Wait a few seconds for the on-chain confirmation.
+  </Step>
+  <Step title="Confirmation">
+    Once the transaction is confirmed, you will see a success message and the app will automatically refresh your Merchant status. You can now create public orders.
+  </Step>
+</Steps>
+
+## Understanding the 2x Order Capacity Multiplier
+
+Your collateral directly determines how much total value you can have outstanding in public orders at any given time.
+
+<Info>
+  Achylo applies a **2x multiplier** to your deposited collateral. For example, if you deposit 500 USDC as collateral, you can publish orders with a combined total available amount of up to **1,000 USDC**.
+</Info>
+
+Inside the Create Public Order modal you will always see three figures:
+
+| Field | Meaning |
+|---|---|
+| **Your Merchant Collateral** | The total USDC you have locked as your guarantee. |
+| **Max Order Capacity (2x multiplier)** | The maximum combined value of orders you can have active (collateral × 2). |
+| **Available** | Remaining capacity after subtracting the total value of your currently active orders. |
+
+## Managing Your Collateral
+
+Your collateral remains locked on-chain for as long as you hold Merchant status. This protects counterparties and ensures you can back the orders you create.
+
+### Withdrawing Your Collateral
+
+If you decide to stop being a Merchant, you can reclaim your funds using the **"Withdraw Fund"** option in your Merchant dashboard.
+
+<Warning>
+  A **72-hour cooldown** applies to collateral withdrawals if you have executed any buy or sell trade within the last 72 hours. This cooldown is a safety mechanism to ensure pending obligations are fully settled before funds are released.
+</Warning>
+
+<Tip>
+  Before initiating a withdrawal, make sure you have **no pending or active orders**. Cancelling or completing any open escrows first will make the withdrawal process faster and smoother.
+</Tip>
+
+### Cooldown Summary
+
+| Condition | Result |
+|---|---|
+| No trade in the last 72 hours | Collateral withdrawable immediately. |
+| Trade executed in the last 72 hours | 72-hour cooldown applies before withdrawal is allowed. |
+
+## Merchant Transaction Limits
+
+Registered Merchants benefit from significantly higher transaction quotas compared to regular users. These limits apply across all on-chain actions that consume quota.
+
+| Limit Type | Merchant Quota |
+|---|---|
+| **Hourly limit** | 30 transactions per hour |
+| **Daily limit** | 300 transactions per day |
+
+<Note>
+  Core trading actions such as creating a private escrow, accepting a public order, releasing funds, confirming payment, claiming funds, initiating a dispute, and voting in a dispute do **not** count against your quota. See [Limits & Fees](/p2p/limits-and-fees) for the full breakdown.
+</Note>

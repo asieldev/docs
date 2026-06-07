@@ -1,0 +1,82 @@
+---
+title: "Buying and Selling USDC via Achylo P2P Escrow Contracts"
+sidebarTitle: "Buy & Sell"
+description: "Complete guide for buyers and sellers on the Achylo P2P platform: how to send fiat, confirm payment, and release USDC from escrow safely."
+---
+
+Once an escrow is active — whether it was created from a public order or a private order — the trade enters its execution phase. At this point every participant plays one of two roles: the **Buyer**, who sends fiat payment off-chain and waits for USDC to be released, or the **Seller**, who holds USDC locked in the smart contract and releases it only after confirming receipt of fiat. This page walks you through each role step by step.
+
+<Tabs>
+  <Tab title="Buyer (Paying Fiat)">
+    As the Buyer, your job is to send fiat payment through the agreed-off-chain method, notify the seller inside the app, and provide verifiable evidence of your payment.
+
+    <Steps>
+      <Step title="Monitor your active escrow">
+        Open the **Active Orders** section of the app. Find the escrow that was just created and review its details: the USDC amount, exchange rate, fiat total, and the seller's payment details.
+      </Step>
+      <Step title="Coordinate with the seller">
+        Use the seller's provided contact or payment details to confirm any last-minute specifics — for example, verifying the exact account name or reference code to include in your bank transfer. Clear communication prevents mismatches that can delay the trade.
+      </Step>
+      <Step title="Send fiat payment off-chain">
+        Transfer the agreed fiat amount to the seller using the payment method they specified (e.g., Zelle, Pix, bank transfer, Bandec). Do this outside the app — Achylo does not process fiat payments directly.
+      </Step>
+      <Step title="Obtain proof of payment">
+        Before doing anything else, **save your payment evidence**: a screenshot of the confirmation screen, a transaction receipt, a bank notification email, or any other proof that clearly shows the amount, recipient, and timestamp.
+      </Step>
+      <Step title="Notify the seller in the app">
+        Return to the Active Orders section, open the escrow, and click **"Confirm Payment Sent"**. This sends a formal on-chain notification to the seller that you have completed your side of the trade.
+      </Step>
+      <Step title="Upload evidence to the order chat">
+        Attach your payment screenshot or receipt to the **Chat** section of the order. This record is stored with the escrow and is critical evidence if a dispute is ever raised. Never skip this step.
+      </Step>
+      <Step title="Wait for fund release">
+        The seller will verify payment in their bank account or fiat wallet. Once confirmed, they will click **"Release Funds"** and your USDC will arrive in your wallet automatically.
+      </Step>
+    </Steps>
+
+    <Warning>
+      **Always save your payment evidence.** Receipts, screenshots, and bank notifications are your only protection if a dispute is opened. Without them, resolving a disagreement in your favour becomes significantly harder.
+    </Warning>
+  </Tab>
+
+  <Tab title="Seller (Releasing USDC)">
+    As the Seller, your USDC is already locked in the escrow smart contract. Your job is to monitor the buyer's payment, verify it arrived in your fiat account, and then release the funds on-chain.
+
+    <Steps>
+      <Step title="Monitor your active escrow">
+        Check the **Active Orders** tab regularly. You will see the status of the escrow update as the buyer interacts with it. Wait for the buyer to confirm payment.
+      </Step>
+      <Step title="Check the order chat">
+        When the buyer clicks "Confirm Payment Sent", you should receive a notification. Open the escrow's **Chat** to review the payment receipt or screenshot the buyer has uploaded.
+      </Step>
+      <Step title="Verify payment in your fiat account">
+        **Before taking any action in the app**, log in to your bank account, mobile wallet, or payment platform and confirm that the fiat funds have actually arrived. Check the amount and sender details carefully.
+      </Step>
+      <Step title="Release the escrow funds">
+        Once you have confirmed the fiat payment is in your account, return to the Active Orders section, open the escrow, and click **"Release Funds"**. Confirm the transaction in your wallet. The USDC will be sent from the escrow contract directly to the buyer's wallet.
+      </Step>
+    </Steps>
+
+    <Warning>
+      **Never release funds based solely on a screenshot or chat message.** Always verify that the fiat payment has settled in your own bank account or wallet before clicking "Release Funds". Releasing funds to a fraudulent buyer cannot be undone.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Frequently Asked Questions
+
+<Accordion title="What happens if the buyer never confirms payment?">
+  If the buyer does not confirm payment within the **Reclaim Timeout** window set on the order, you as the seller can reclaim your USDC directly from the smart contract. No action from the buyer is required at that point.
+</Accordion>
+
+<Accordion title="What if there is a disagreement about whether payment was received?">
+  Either party can open a **dispute** from the Active Orders view. The Achylo dispute resolution system will review the evidence uploaded to the chat (receipts, screenshots) and reach a binding resolution. This is why uploading payment evidence to the chat is so important.
+</Accordion>
+
+<Accordion title="Can I cancel an escrow after it is created?">
+  Cancellation is possible before certain stages, depending on the escrow status. Look for a cancellation or dispute option in the Active Orders view. Note that cancellation requests may be subject to review if the counterparty contests them.
+</Accordion>
+
+<Accordion title="How long does a trade typically take?">
+  Trade duration depends on the payment method and how quickly both parties act. The seller controls the Reclaim Timeout; common choices range from a few hours to a couple of days for international transfers. Once the seller releases funds, USDC arrives in the buyer's wallet within seconds.
+</Accordion>

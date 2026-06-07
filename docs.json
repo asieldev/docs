@@ -1,0 +1,79 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "luma",
+  "name": "Achylo Protocol",
+  "colors": {
+    "primary": "#FF7F41",
+    "light": "#FFF0E8",
+    "dark": "#1A0E00"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "p2p/getting-started",
+              "p2p/wallet"
+            ]
+          },
+          {
+            "group": "P2P Marketplace",
+            "pages": [
+              "p2p/merchant",
+              "p2p/public-orders",
+              "p2p/private-orders",
+              "p2p/buy-and-sell",
+              "p2p/limits-and-fees"
+            ]
+          },
+          {
+            "group": "CUBT Token",
+            "pages": [
+              "cubt/overview",
+              "cubt/mint",
+              "cubt/redeem",
+              "cubt/fees"
+            ]
+          },
+          {
+            "group": "Developers",
+            "pages": [
+              "developers/quickstart",
+              "developers/api-keys",
+              "developers/payment-links",
+              "developers/payment-widgets",
+              "developers/webhooks"
+            ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              "white-paper",
+              "community",
+              "legal/terms-of-service",
+              "legal/privacy-policy"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Launch App",
+      "href": "https://achylo.com"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/0xachylo",
+      "telegram": "https://t.me/achyloprotocol"
+    }
+  }
+}
